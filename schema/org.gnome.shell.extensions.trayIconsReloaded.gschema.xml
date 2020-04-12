@@ -1,0 +1,16 @@
+<schemalist>
+  <schema id="org.gnome.shell.extensions.trayIconsReloaded" path="/org/gnome/shell/extensions/trayIconsReloaded/">
+    <key name="tray-position" type="s">
+      <default>"right"</default>
+      <summary>Tray position</summary>
+    </key>
+    <key name="icon-size" type="i">
+      <default>20</default>
+      <summary>Icon size</summary>
+    </key>
+	<key name="wine-behavior" type="b">
+      <default>true</default>
+      <summary>Wine behavior</summary>
+    </key>
+  </schema>
+</schemalist>
