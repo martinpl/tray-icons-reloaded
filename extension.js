@@ -47,7 +47,7 @@ class Extension {
 
     enable() {
 		TrayIcons = new TrayIconsClass();
-		this._settings = getSettings('org.gnome.shell.extensions.trayIconsReloaded');
+		this._settings = getSettings();
 		this._setIconSize();
 		this._setTrayArea();
 		this._onChange();
