@@ -32,7 +32,6 @@ const getTrayApp = function(icon) {
 	} else {
 		return false;
 	}
-	
 }
 
 const toggleWindows = function (icon, event) {
@@ -41,10 +40,13 @@ const toggleWindows = function (icon, event) {
 		let focusedApp = WindowTracker.get_default().focusApp;
 		let windows = trayApp.get_windows();
 		if(focusedApp != null && focusedApp.id == trayApp.id) {
+			if(isUsingQt(icon.pid)) { return icon.click(event); }
 			focusedApp.get_windows().forEach(window => {
 				window.minimize();
 			});
+			
 		} else if(windows == '') {
+			if(isUsingQt(icon.pid)) { return icon.click(event); }
 			trayApp.open_new_window(0);
 		} else {
 			windows.forEach(window => {
@@ -67,5 +69,13 @@ const killWindows = function (icon, event) {
 			});
 			trayApp.request_quit();
 		}
+	}
+}
+
+function isUsingQt(pid) {
+	const GLib = imports.gi.GLib;
+	let [ok, out, err, exit] = GLib.spawn_command_line_sync(`/bin/bash -c 'pmap -p ${pid} | grep Qt'`);
+	if (out.length > 0) {
+		return true;
 	}
 }
