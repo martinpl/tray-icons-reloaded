@@ -61,12 +61,10 @@ var TrayIndicator = new imports.lang.Class({
 		this._indicators.add_child(button);
 
 		button.connect('button-release-event', (actor, event) => { 
-			if(event) {
-				switch(event.get_button()) {
-					case 1: AppManager.toggleWindows(icon, event);		break;
-					case 2: AppManager.killWindows(icon, event);		break;
-					case 3: icon.click(event);							break;
-				}
+			switch(event.get_button()) {
+				case 1: AppManager.toggleWindows(icon, event);		break;
+				case 2: AppManager.killWindows(icon, event);		break;
+				case 3: icon.click(event);							break;
 			}
 		});
 
