@@ -2,7 +2,7 @@ const Main				= imports.ui.main;
 const Shell				= imports.gi.Shell;
 const Me				= imports.misc.extensionUtils.getCurrentExtension();
 const TrayIndicator		= Me.imports.TrayIndicator;
-const getSettings		= Me.imports.utils.getSettings;
+const getSettings		= imports.misc.extensionUtils.getSettings;
 const System			= imports.system;
 
 var TrayIconsClass = new imports.lang.Class({
@@ -47,7 +47,7 @@ class Extension {
 
     enable() {
 		TrayIcons = new TrayIconsClass();
-		this._settings = getSettings();
+		this._settings = getSettings('org.gnome.shell.extensions.trayIconsReloaded');
 		this._setIconSize();
 		this._setTrayArea();
 		this._onChange();

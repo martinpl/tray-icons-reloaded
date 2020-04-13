@@ -1,7 +1,6 @@
-const AppSystem     = imports.gi.Shell.AppSystem;
-const WindowTracker = imports.gi.Shell.WindowTracker;
-const Me			= imports.misc.extensionUtils.getCurrentExtension();
-const getSettings	= Me.imports.utils.getSettings;
+const AppSystem     	= imports.gi.Shell.AppSystem;
+const WindowTracker 	= imports.gi.Shell.WindowTracker;
+const getSettings		= imports.misc.extensionUtils.getSettings;
 
 const getTrayApp = function(icon) {
 	const blacklist = ['Google-chrome', 'Chromium'];
@@ -25,7 +24,7 @@ const getTrayApp = function(icon) {
 				i++;
 			}
 		}
-	} else if(icon.wm_class == 'Wine' && getSettings().get_boolean('wine-behavior')) {
+	} else if(icon.wm_class == 'Wine' && getSettings.get_boolean('wine-behavior')) {
 		const wineApps = AppSystem.get_default().get_running().filter(app => {
 			return app.get_windows()[0].wm_class == icon.wm_class;
 		});

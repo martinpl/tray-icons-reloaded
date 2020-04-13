@@ -1,8 +1,7 @@
 const GObject		= imports.gi.GObject;
 const Gtk			= imports.gi.Gtk;
 const Gio			= imports.gi.Gio;
-const Me			= imports.misc.extensionUtils.getCurrentExtension();
-const getSettings	= Me.imports.utils.getSettings;
+const getSettings	= imports.misc.extensionUtils.getSettings;
 
 const settingsWidgets = new GObject.Class({
     Name: 'TrayIcons.Settings',
