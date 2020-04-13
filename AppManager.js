@@ -1,6 +1,7 @@
 const AppSystem     	= imports.gi.Shell.AppSystem;
 const WindowTracker 	= imports.gi.Shell.WindowTracker;
 const getSettings		= imports.misc.extensionUtils.getSettings;
+const GLib				= imports.gi.GLib;
 
 const getTrayApp = function(icon) {
 	const blacklist = ['Google-chrome', 'Chromium'];
@@ -63,6 +64,7 @@ const killWindows = function (icon, event) {
 	if(event.get_state_full()[1] === 1) {	// If holding SHIFT
 		let trayApp = getTrayApp(icon);
 		if(trayApp) {
+			if(isUsingQt(icon.pid)) { return GLib.spawn_command_line_sync(`/bin/kill ${icon.pid}`); }
 			let windows = trayApp.get_windows();
 			windows.forEach(window => {
 				window.kill();
@@ -73,7 +75,6 @@ const killWindows = function (icon, event) {
 }
 
 function isUsingQt(pid) {
-	const GLib = imports.gi.GLib;
 	let [ok, out, err, exit] = GLib.spawn_command_line_sync(`/bin/bash -c 'pmap -p ${pid} | grep Qt'`);
 	if (out.length > 0) {
 		return true;
