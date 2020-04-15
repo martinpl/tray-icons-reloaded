@@ -37,12 +37,13 @@ class Extension {
 	}
 
 	_setTrayArea() {
-		Main.panel.addToStatusArea('TrayIconsReloaded' + Math.random(), TrayIcons.indicators, 0, this._settings.get_string('tray-position'));
+		Main.panel.addToStatusArea('TrayIconsReloaded' + Math.random(), TrayIcons.indicators, this._settings.get_int('position-weight'), this._settings.get_string('tray-position'));
 	}
 
 	_onChange() {
+		this._settings.connect('changed::tray-position', this._setTrayArea.bind(this));
+		this._settings.connect('changed::position-weight', this._setTrayArea.bind(this));
 		this._settings.connect('changed::icon-size', this._setIconSize.bind(this));
-        this._settings.connect('changed::tray-position', this._setTrayArea.bind(this));
 	}
 
     enable() {
