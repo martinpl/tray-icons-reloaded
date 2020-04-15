@@ -3,8 +3,9 @@
 Tray Icons Reloaded is a GNOME Shell 3.36 extension which bring back Tray Icons to top panel, with additional favore.
 
 ### Features
-* mouse buttons emulation (left toggle window, middle + SHIFT kill app, right is redirect to app - in most case menu)
-* workspace support (windows are invoked to current workspace)
+* left click works on apps with don't support this (Steam, Discord etc)
+* SHIFT + middle click kill app
+* window are invoked to current workspace
 * settings (position, icon size, Wine behavior)
 * work with Wine in limited way (left and middle click affect all wine apps)
 
