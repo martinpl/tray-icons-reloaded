@@ -5,4 +5,11 @@
 .TrayIndicator StButton {
 	padding: 0 6px; 
 	margin: 0 4px;
+	transition-property: background-color;
+    transition-duration: .1s;
+    transition-timing-function: linear;
+}
+
+.TrayIndicator StButton:hover {
+	background-color: rgba(255, 255, 255, .1);
 }
