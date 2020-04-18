@@ -33,7 +33,7 @@ let TrayIcons;
 
 class Extension {
 	_setIconSize() {
-		TrayIcons.indicators.setSize(this._settings.get_int('icon-size'));
+		TrayIcons.indicators.setSize(this._settings.get_int('icon-size'), this._settings.get_int('icon-margin'));
 	}
 
 	_setTrayArea() {
@@ -44,6 +44,7 @@ class Extension {
 		this._settings.connect('changed::tray-position', this._setTrayArea.bind(this));
 		this._settings.connect('changed::position-weight', this._setTrayArea.bind(this));
 		this._settings.connect('changed::icon-size', this._setIconSize.bind(this));
+		this._settings.connect('changed::icon-margin', this._setIconSize.bind(this));
 	}
 
     enable() {

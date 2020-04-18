@@ -4,7 +4,7 @@
       <default>"right"</default>
       <summary>Tray position</summary>
     </key>
-	<key name="position-weight" type="i">
+    <key name="position-weight" type="i">
       <default>0</default>
       <summary>Position weight</summary>
     </key>
@@ -12,7 +12,11 @@
       <default>20</default>
       <summary>Icon size</summary>
     </key>
-	<key name="wine-behavior" type="b">
+    <key name="icon-margin" type="i">
+      <default>4</default>
+      <summary>Icon margin</summary>
+    </key>
+    <key name="wine-behavior" type="b">
       <default>true</default>
       <summary>Wine behavior</summary>
     </key>

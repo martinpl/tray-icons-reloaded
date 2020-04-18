@@ -26,8 +26,9 @@ var TrayIndicator = new imports.lang.Class({
 		return this._size * context.scale_factor;
 	},
 
-	setSize(size) {
+	setSize(size, margin) {
 		this._size = size;
+		this._margin = margin;
 
 		this._icons.forEach(icon => {
 			icon.get_parent().style = this.getButtonStyle();
@@ -36,7 +37,7 @@ var TrayIndicator = new imports.lang.Class({
 	},
 
 	getButtonStyle() {
-		return `width: ${this.size}px; height: ${this.size}px`;
+		return `margin: 0 ${this._margin}px; width: ${this.size}px; height: ${this.size}px`;
 	},
 
 	addIcon(icon) {

@@ -3,11 +3,10 @@
 }
 
 .TrayIndicator StButton {
-	padding: 0 6px; 
-	margin: 0 4px;
+	padding: 0 6px;
 	transition-property: background-color;
-    transition-duration: .1s;
-    transition-timing-function: linear;
+	transition-duration: .1s;
+	transition-timing-function: linear;
 }
 
 .TrayIndicator StButton:hover {
