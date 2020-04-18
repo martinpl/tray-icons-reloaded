@@ -16,10 +16,9 @@ var TrayIndicator = new imports.lang.Class({
 		this.parent(0.0, null, true);
 
 		this._indicators = new St.BoxLayout();
-		this._indicators.set_style('margin-left: 6px');
 		this.add_child(this._indicators);
 
-		this.style_class = '';
+		this.style_class = 'TrayIndicator';
 	},
 
 	get size() {
@@ -37,7 +36,7 @@ var TrayIndicator = new imports.lang.Class({
 	},
 
 	getButtonStyle() {
-		return `padding: 0 8px; margin: 0 2px;width: ${this.size}px; height: ${this.size}px`;
+		return `width: ${this.size}px; height: ${this.size}px`;
 	},
 
 	addIcon(icon) {
