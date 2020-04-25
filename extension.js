@@ -4,6 +4,7 @@ const Me				= imports.misc.extensionUtils.getCurrentExtension();
 const TrayIndicator		= Me.imports.TrayIndicator;
 const getSettings		= imports.misc.extensionUtils.getSettings;
 const System			= imports.system;
+const GLib				= imports.gi.GLib;
 
 var TrayIconsClass = new imports.lang.Class({
 	Name: 'Tray Icons: Reloaded',
@@ -51,8 +52,12 @@ class Extension {
 		TrayIcons = new TrayIconsClass();
 		this._settings = getSettings();
 		this._setIconSize();
-		this._setTrayArea();
 		this._onChange();
+
+		GLib.timeout_add(GLib.PRIORITY_DEFAULT, 750, () => {	
+			this._setTrayArea();
+			return GLib.SOURCE_REMOVE;
+		});
     }
 
     disable() { 
