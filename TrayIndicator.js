@@ -45,7 +45,7 @@ var TrayIndicator = new imports.lang.Class({
 		
 		icon.opacity = 0;
 		icon.connect('queue-relayout', () => {
-			GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
+			GLib.timeout_add(GLib.PRIORITY_DEFAULT, 150, () => {
 				icon.set_size(this.size, this.size);
 				icon.set_y_align(Clutter.ActorAlign.CENTER);
 				icon.ease({
