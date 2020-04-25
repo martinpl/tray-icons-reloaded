@@ -1,5 +1,5 @@
 UUID = trayIconsReloaded@selfmade.pl
-FILES = metadata.json extension.js TrayIndicator.js AppManager.js prefs.js
+FILES = metadata.json extension.js TrayIndicator.js AppManager.js prefs.js stylesheet.css
 
 _build: 
 	-rm -fR ./_build
