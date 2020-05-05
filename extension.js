@@ -4,7 +4,6 @@ const Me				= imports.misc.extensionUtils.getCurrentExtension();
 const TrayIndicator		= Me.imports.TrayIndicator;
 const getSettings		= imports.misc.extensionUtils.getSettings;
 const System			= imports.system;
-const GLib				= imports.gi.GLib;
 
 var TrayIconsClass = new imports.lang.Class({
 	Name: 'Tray Icons: Reloaded',
@@ -54,13 +53,17 @@ class Extension {
 		this._setIconSize();
 		this._onChange();
 
-		GLib.timeout_add(GLib.PRIORITY_DEFAULT, 750, () => {	
+		if (Main.layoutManager._startingUp) {
+			this._startupComplete = Main.layoutManager.connect('startup-complete', () => { 
+				this._setTrayArea();
+				Main.layoutManager.disconnect(this._startupComplete);
+			});
+		} else {
 			this._setTrayArea();
-			return GLib.SOURCE_REMOVE;
-		});
+		}
     }
 
-    disable() { 
+    disable() {
 		TrayIcons._destroy();
 		this._settings.run_dispose();
 	}
