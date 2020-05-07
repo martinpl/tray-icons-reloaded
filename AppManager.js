@@ -4,9 +4,6 @@ const getSettings		= imports.misc.extensionUtils.getSettings;
 const GLib				= imports.gi.GLib;
 
 const getTrayApp = function(icon) {
-	const blacklist = ['Google-chrome', 'Chromium'];
-	if(blacklist.includes(icon.wm_class)) { return false; }
-
 	const trayApp = AppSystem.get_default().get_running().filter(app => { // Returns only applications which at least one window
 		return app.get_pids() == icon.pid;  // Some app return pid -1 (Steam)
 	});
