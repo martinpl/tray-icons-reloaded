@@ -32,13 +32,13 @@ const toggleWindows = function (icon, event) {
 		let focusedApp = WindowTracker.get_default().focusApp;
 		let windows = trayApp.get_windows();
 		if(focusedApp != null && focusedApp.id == trayApp.id) {
-			if(isUsingQt(icon.pid)) { return icon.click(event); }
+			if(isUsingQt(getPid(icon))) { return icon.click(event); }
 			focusedApp.get_windows().forEach(window => {
 				window.minimize();
 			});
 			
 		} else if(windows == '') {
-			if(isUsingQt(icon.pid)) { return icon.click(event); }
+			if(isUsingQt(getPid(icon))) { return icon.click(event); }
 			trayApp.open_new_window(0);
 		} else {
 			windows.forEach(window => {
@@ -55,7 +55,8 @@ const killWindows = function (icon, event) {
 	if(event.get_state_full()[1] === 1) {	// If holding SHIFT
 		let trayApp = getTrayApp(icon);
 		if(trayApp) {
-			if(isUsingQt(icon.pid)) { return GLib.spawn_command_line_sync(`/bin/kill ${icon.pid}`); }
+			const pid = getPid(icon);
+			if(isUsingQt(pid)) { return GLib.spawn_command_line_sync(`/bin/kill ${pid}`); }
 			let windows = trayApp.get_windows();
 			windows.forEach(window => {
 				window.kill();
@@ -76,4 +77,16 @@ function getWmClass(wmclass) {
 	wmclass = wmclass.replace(/[0-9]/g, ''); // skype discord
 	wmclass = wmclass.replace('Desktop', ''); // telegram
 	return wmclass;
+}
+
+function getPid(icon) {
+	const wmclass = getWmClass(icon.wm_class);
+	if(icon.title != 'snixembed') {
+		return icon.pid;
+	}
+
+	let [ok, out, err, exit] = GLib.spawn_command_line_sync(`/bin/bash -c "pidof -s ${wmclass}"`);
+	if (out.length) {
+		return Number(out);
+	}
 }
