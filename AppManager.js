@@ -4,31 +4,25 @@ const getSettings		= imports.misc.extensionUtils.getSettings;
 const GLib				= imports.gi.GLib;
 
 const getTrayApp = function(icon) {
-	const trayApp = AppSystem.get_default().get_running().filter(app => { // Returns only applications which at least one window
-		return app.get_pids() == icon.pid;  // Some app return pid -1 (Steam)
-	});
-
-	if(trayApp.length) {
-		return trayApp[0];
-	} else if(icon.title) {
-		const searchedApps = AppSystem.search(icon.title);
-		if(searchedApps[0][0]) {
-			var i = 1;
-			for(let lookup of searchedApps[0]) {
-				let app = AppSystem.get_default().lookup_app(lookup);
-				if(app.get_windows() != '' || i == searchedApps[0].length) {
-					return app;	
-				}
-				i++;
-			}
-		}
-	} else if(icon.wm_class == 'Wine' && getSettings().get_boolean('wine-behavior')) {
+	if(isWine(icon)) {
 		const wineApps = AppSystem.get_default().get_running().filter(app => {
-			return app.get_windows()[0].wm_class == icon.wm_class;
+			return app.get_windows()[0].wm_class.includes('.exe');
 		});
 		return wineApps[0];
+	}
+
+	const searchedApps = AppSystem.search(getWmClass(icon.wm_class));
+	if(searchedApps[0] && searchedApps[0][0]) {
+		var i = 1;
+		for(let lookup of searchedApps[0]) {
+			let app = AppSystem.get_default().lookup_app(lookup);
+			if(app.get_windows() != '' || i == searchedApps[0].length) {
+				return app;	
+			}
+			i++;
+		}
 	} else {
-		return false;
+		return false
 	}
 }
 
@@ -76,4 +70,10 @@ function isUsingQt(pid) {
 	if (out.length > 0) {
 		return true;
 	}
+}
+
+function getWmClass(wmclass) {
+	wmclass = wmclass.replace(/[0-9]/g, ''); // skype discord
+	wmclass = wmclass.replace('Desktop', ''); // telegram
+	return wmclass;
 }
