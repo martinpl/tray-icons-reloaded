@@ -31,23 +31,29 @@ const toggleWindows = function (icon, event) {
 	if(trayApp) {
 		let focusedApp = WindowTracker.get_default().focusApp;
 		let windows = trayApp.get_windows();
+
+		if(windows == '') {
+			if(isUsingQt(getPid(icon))) { return icon.click(event); }
+			return trayApp.open_new_window(0);
+		} 
+
 		if(focusedApp != null && focusedApp.id == trayApp.id) {
 			if(isUsingQt(getPid(icon))) { return icon.click(event); }
 			focusedApp.get_windows().forEach(window => {
 				window.minimize();
 			});
-			
-		} else if(windows == '') {
-			if(isUsingQt(getPid(icon))) { return icon.click(event); }
-			trayApp.open_new_window(0);
 		} else {
 			windows.forEach(window => {
 				window.change_workspace(global.workspace_manager.get_active_workspace());
 				trayApp.activate_window(window, event.get_time());
+				window.unminimize(event);
 			});
 		}
 	} else {
 		icon.click(event);
+		if(isWine(icon)) { 
+			icon.click(event);
+		}
 	}
 }
 
