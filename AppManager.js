@@ -72,6 +72,12 @@ const killWindows = function (icon, event) {
 	}
 }
 
+function isWine(icon) {
+	if((icon.wm_class == 'Wine' || icon.wm_class == 'explorer.exe') && getSettings().get_boolean('wine-behavior')) {
+		return true
+	}
+}
+
 function isUsingQt(pid) {
 	let [ok, out, err, exit] = GLib.spawn_command_line_sync(`/bin/bash -c 'pmap -p ${pid} | grep Qt'`);
 	if (out.length > 0) {
