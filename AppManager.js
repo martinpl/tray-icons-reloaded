@@ -22,7 +22,7 @@ const getTrayApp = function(icon) {
 			i++;
 		}
 	} else {
-		return false
+		return false;
 	}
 }
 

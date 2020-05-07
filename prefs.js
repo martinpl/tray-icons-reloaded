@@ -28,7 +28,7 @@ const settingsWidgets = new GObject.Class({
 		
 		label = new Gtk.Label({ label: 'Position weight', hexpand: true, halign: Gtk.Align.START });
         widget = new Gtk.SpinButton({halign:Gtk.Align.END});
-        widget.set_range(0, 99);
+        widget.set_range(-99, 99);
 		widget.set_increments(1, 1);
 		this._settings.bind('position-weight', widget, 'value', Gio.SettingsBindFlags.DEFAULT);
         this.attach(label, 0, 1, 1, 1);
