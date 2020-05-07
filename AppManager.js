@@ -80,7 +80,7 @@ function isWine(icon) {
 
 function isUsingQt(pid) {
 	let [ok, out, err, exit] = GLib.spawn_command_line_sync(`/bin/bash -c 'pmap -p ${pid} | grep Qt'`);
-	if (out.length > 0) {
+	if (out.length) {
 		return true;
 	}
 }
