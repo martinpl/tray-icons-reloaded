@@ -8,6 +8,10 @@
       <default>0</default>
       <summary>Position weight</summary>
     </key>
+	<key name="icons-limit" type="i">
+      <default>4</default>
+      <summary>Icons limit</summary>
+    </key>
     <key name="icon-size" type="i">
       <default>20</default>
       <summary>Icon size</summary>

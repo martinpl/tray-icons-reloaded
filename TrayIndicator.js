@@ -2,9 +2,11 @@ const Clutter		= imports.gi.Clutter;
 const GObject		= imports.gi.GObject;
 const St			= imports.gi.St;
 const PanelMenu		= imports.ui.panelMenu;
+const PopupMenu		= imports.ui.popupMenu
 const Me			= imports.misc.extensionUtils.getCurrentExtension();
 const AppManager	= Me.imports.AppManager;
 const GLib			= imports.gi.GLib;
+const getSettings	= imports.misc.extensionUtils.getSettings;
 
 var TrayIndicator = new imports.lang.Class({
 	Name: 'TrayIndicator',
@@ -13,12 +15,23 @@ var TrayIndicator = new imports.lang.Class({
 	_init() {
 		this._icons = [];
 
-		this.parent(0.0, null, true);
+		this.parent(0.0, null, false);
 
 		this._indicators = new St.BoxLayout();
 		this.add_child(this._indicators);
 
-		this.style_class = 'TrayIndicator';
+		this._icon = new St.Icon({
+			icon_name: 'view-more-horizontal',
+			style_class: 'system-status-icon',
+			reactive: true,
+			track_hover: true,
+			visible: false
+		});
+		this._indicators.add_child(this._icon);
+
+		this._menuItem = new PopupMenu.PopupBaseMenuItem({ reactive: false, can_focus: true });
+		this.menu.addMenuItem(this._menuItem);
+		this.menu.actor.add_style_class_name('TrayIndicatorPopup');
 	},
 
 	get size() {
@@ -31,19 +44,16 @@ var TrayIndicator = new imports.lang.Class({
 		this._margin = margin;
 
 		this._icons.forEach(icon => {
-			icon.get_parent().style = this.getButtonStyle();
+			icon.get_parent().style = this._getButtonStyle();
 			icon.set_size(this._size, this._size);
 		});
 	},
 
-	getButtonStyle() {
-		return `margin: 0 ${this._margin}px; width: ${this.size}px; height: ${this.size}px`;
-	},
-
 	addIcon(icon) {
-		const button = new St.Button({ child: icon, button_mask: St.ButtonMask.ONE | St.ButtonMask.TWO | St.ButtonMask.THREE, style: this.getButtonStyle() });
+		const button = new St.Button({ child: icon, button_mask: St.ButtonMask.ONE | St.ButtonMask.TWO | St.ButtonMask.THREE, style: this._getButtonStyle() });
 		
 		icon.opacity = 0;
+		icon.inOverflow = this._overflow;
 		icon.connect('queue-relayout', () => {
 			GLib.timeout_add(GLib.PRIORITY_DEFAULT, 150, () => {
 				icon.set_size(this.size, this.size);
@@ -58,24 +68,79 @@ var TrayIndicator = new imports.lang.Class({
 		});
 		icon.connect('destroy', () => { button.destroy(); });
 
-		this._indicators.add_child(button);
-
-		button.connect('button-release-event', (actor, event) => { 
+		button.connect('button-release-event', (actor, event) => {
 			switch(event.get_button()) {
 				case 1: AppManager.toggleWindows(icon, event);		break;
 				case 2: AppManager.killWindows(icon, event);		break;
 				case 3: icon.click(event);							break;
 			}
+			if(AppManager.isWine(icon)) {
+				GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1, () => {
+					this.menu.close();
+					return GLib.SOURCE_REMOVE;
+				});
+			} else {
+				this.menu.close();
+			}
 		});
 
 		this._icons.push(icon);
+
+		if(this._overflow) {
+			this._menuItem.actor.add(button);
+		} else {
+			this._indicators.add_child(button);
+		}
+
+		this.checkOverflow();
 	},
 
-	removeIcon(icon) {
-		const actor = icon.get_parent() || icon;
+
+	removeIcon(icon, ignoreCheckOverflow) {
+		const index = this._icons.indexOf(icon);
+		this._icons.splice(index, 1);		
+
+		const actor = icon.get_parent();
+		actor.remove_actor(icon);
 		actor.destroy();
 
-		const index = this._icons.indexOf(icon);
-		this._icons.splice(index, 1);
+		if(!ignoreCheckOverflow) {
+			this.checkOverflow();
+		}
 	},
+
+	checkOverflow() {
+		if(!this._ignoreCheckOverflow) {
+			if(this._icons.length >= getSettings().get_int('icons-limit')) {
+				this._overflow = true;
+				this._icon.visible = true;
+				this.style_class = 'panel-button';
+				this.reactive = true;
+			} else {
+				this._overflow = false;
+				this._icon.visible = false;
+				this.style_class = 'TrayIndicator'; 
+				this.reactive = false;
+			}
+
+			this._refreshIcons(this._overflow);
+		}
+	},
+
+	_refreshIcons(overflow) {
+		this._icons.forEach(icon => {
+			if(icon.inOverflow != overflow) {
+				this.removeIcon(icon, true);
+				this.addIcon(icon);
+				this.checkOverflow();
+			}
+		});
+	},
+
+	_getButtonStyle() {
+		let margin;
+		if(!this._overflow) { margin = `margin: 0 ${this._margin}px;` }
+		return `width: ${this.size}px; height: ${this.size}px;${margin}`;
+	}
+
 });
