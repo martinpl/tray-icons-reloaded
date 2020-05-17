@@ -16,6 +16,7 @@ var TrayIndicator = new imports.lang.Class({
 		this._icons = [];
 
 		this.parent(0.0, null, false);
+		this.style_class = '';
 
 		this._indicators = new St.BoxLayout();
 		this.add_child(this._indicators);
