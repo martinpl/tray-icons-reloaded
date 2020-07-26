@@ -5,6 +5,10 @@ Tray Icons Reloaded is a GNOME Shell 3.36 extension which bring back Tray Icons 
 ### Compatibility
 Its only works with Xorg and XWayland. If you have some trouble you can try snixembed its also adds visual native menus in all apps.
 https://git.sr.ht/~steef/snixembed
+<<<<<<< HEAD
+=======
+(for autostart add `snixembed --fork` to .profile in home directory).
+>>>>>>> 4bcc9d6830df9ab1ca9743a4333272b029a95456
 
 ### Features
 * left click works with apps which don't support this natively (Steam, Discord etc)
@@ -22,5 +26,5 @@ The core functionality was taken from: [unite-shell (hardpixel)](https://github.
 ](https://github.com/mjnaderi/TopTray)
 
 ### Donations
-paypal.me/martinpl
+[paypal.me/martinpl](https://www.paypal.me/martinpl)
 Bitcoin: bc1qn6c4rt753quvfep25mhurqk3e25r3s9ql45c69
