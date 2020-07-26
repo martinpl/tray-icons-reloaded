@@ -64,6 +64,7 @@ var TrayIndicator = new imports.lang.Class({
 					duration: 400,
 					mode: Clutter.AnimationMode.EASE_OUT_QUAD
 				})
+				this._addEffectIcon(icon);
 				return GLib.SOURCE_REMOVE;
 			});
 		});
@@ -142,6 +143,26 @@ var TrayIndicator = new imports.lang.Class({
 		let margin;
 		if(!this._overflow) { margin = `margin: 0 ${this._margin}px;` }
 		return `width: ${this.size}px; height: ${this.size}px;${margin}`;
+	},
+
+	_addEffectIcon(icon) {
+		let brightnessContrast = new Clutter.BrightnessContrastEffect({});
+		brightnessContrast.set_contrast(getSettings().get_int('icon-contrast') / 100);
+		brightnessContrast.set_brightness(getSettings().get_int('icon-brightness') / 100);
+		icon.add_effect_with_name('brightnessContrast', brightnessContrast);
+		icon.add_effect_with_name('desaturate', new Clutter.DesaturateEffect({factor: getSettings().get_int('icon-saturation') / 100}));
+	},
+
+	setEffect(contrast, saturation, brightness) {
+		this._icons.forEach(icon => {
+			let brightnessContrast = icon.get_effect('brightnessContrast');
+			brightnessContrast.set_contrast(contrast / 100);
+			brightnessContrast.set_brightness(brightness / 100);
+
+			let desaturate = icon.get_effect('desaturate');
+			desaturate.set_factor(saturation / 100);
+
+		});
 	}
 
 });
