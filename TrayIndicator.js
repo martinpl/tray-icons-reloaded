@@ -89,7 +89,7 @@ var TrayIndicator = new imports.lang.Class({
 		if(this._overflow) {
 			this._menuItem.actor.add(button);
 		} else {
-			this._indicators.add_child(button);
+			this._indicators.insert_child_at_index(button, 0);
 		}
 
 		this.checkOverflow();
