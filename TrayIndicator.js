@@ -55,18 +55,16 @@ var TrayIndicator = new imports.lang.Class({
 		
 		icon.opacity = 0;
 		icon.inOverflow = this._overflow;
-		icon.connect('queue-relayout', () => {
-			GLib.timeout_add(GLib.PRIORITY_DEFAULT, 300, () => {
-				icon.set_size(this.size, this.size);
-				icon.set_y_align(Clutter.ActorAlign.CENTER);
-				icon.ease({
-					opacity: 255,
-					duration: 400,
-					mode: Clutter.AnimationMode.EASE_OUT_QUAD
-				})
-				this._addEffectIcon(icon);
-				return GLib.SOURCE_REMOVE;
-			});
+		GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () => {
+			icon.set_size(this.size, this.size);
+			icon.set_y_align(Clutter.ActorAlign.CENTER);
+			icon.ease({
+				opacity: 255,
+				duration: 400,
+				mode: Clutter.AnimationMode.EASE_OUT_QUAD
+			})
+			this._addEffectIcon(icon);
+			return GLib.SOURCE_REMOVE;
 		});
 		icon.connect('destroy', () => { button.destroy(); });
 
