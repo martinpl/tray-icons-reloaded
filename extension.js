@@ -64,6 +64,7 @@ class Extension {
 		TrayIcons = new TrayIconsClass();
 		this._settings = getSettings();
 		this._setIconSize();
+		this._setMarginLeft();
 		this._onChange();
 
 		if (Main.layoutManager._startingUp) {
