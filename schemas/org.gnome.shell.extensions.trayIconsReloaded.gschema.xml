@@ -16,9 +16,17 @@
       <default>20</default>
       <summary>Icon size</summary>
     </key>
+    <key name="icon-button-size" type="i">
+      <default>6</default>
+      <summary>Icon button size</summary>
+    </key>
     <key name="icon-margin" type="i">
       <default>4</default>
       <summary>Icon margin</summary>
+    </key>
+    <key name="tray-left-margin" type="i">
+      <default>4</default>
+      <summary>Tray icons left margin</summary>
     </key>
 	<key name="icon-saturation" type="i">
       <default>0</default>

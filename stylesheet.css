@@ -1,7 +1,3 @@
-.TrayIndicator {
-	margin-left: 4px;
-}
-
 .TrayIndicator StButton, 
 .TrayIndicatorPopup StButton {
 	padding: 0 6px;

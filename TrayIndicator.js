@@ -40,9 +40,10 @@ var TrayIndicator = new imports.lang.Class({
 		return this._size * context.scale_factor;
 	},
 
-	setSize(size, margin) {
+	setSize(size, margin, padding) {
 		this._size = size;
 		this._margin = margin;
+		this._padding = padding;
 
 		this._icons.forEach(icon => {
 			icon.get_parent().style = this._getButtonStyle();
@@ -139,7 +140,10 @@ var TrayIndicator = new imports.lang.Class({
 
 	_getButtonStyle() {
 		let margin;
-		if(!this._overflow) { margin = `margin: 0 ${this._margin}px;` }
+		if(!this._overflow) {
+		    margin = `margin: 0 ${this._margin}px;`;
+		    margin += `padding: 0 ${this._padding}px`
+		}
 		return `width: ${this.size}px; height: ${this.size}px;${margin}`;
 	},
 

@@ -33,7 +33,11 @@ let TrayIcons;
 
 class Extension {
 	_setIconSize() {
-		TrayIcons.indicators.setSize(this._settings.get_int('icon-size'), this._settings.get_int('icon-margin'));
+		TrayIcons.indicators.setSize(this._settings.get_int('icon-size'), this._settings.get_int('icon-margin'), this._settings.get_int('icon-button-size'));
+	}
+
+	_setMarginLeft() {
+		TrayIcons.indicators.set_style('margin-left: ' + this._settings.get_int('tray-left-margin') + 'px');
 	}
 
 	_setTrayArea() {
@@ -48,7 +52,9 @@ class Extension {
 		this._settings.connect('changed::tray-position', this._setTrayArea.bind(this));
 		this._settings.connect('changed::position-weight', this._setTrayArea.bind(this));
 		this._settings.connect('changed::icon-size', this._setIconSize.bind(this));
+		this._settings.connect('changed::icon-button-size', this._setIconSize.bind(this));
 		this._settings.connect('changed::icon-margin', this._setIconSize.bind(this));
+		this._settings.connect('changed::tray-left-margin', this._setMarginLeft.bind(this));
 		this._settings.connect('changed::icon-saturation', this._setIconEffect.bind(this));
 		this._settings.connect('changed::icon-contrast', this._setIconEffect.bind(this));
 		this._settings.connect('changed::icon-brightness', this._setIconEffect.bind(this));
