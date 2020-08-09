@@ -36,8 +36,8 @@ class Extension {
 		TrayIcons.indicators.setSize(this._settings.get_int('icon-size'), this._settings.get_int('icon-margin'), this._settings.get_int('icon-button-size'));
 	}
 
-	_setMarginLeft() {
-		TrayIcons.indicators.set_style('margin-left: ' + this._settings.get_int('tray-left-margin') + 'px');
+	_setTrayMargin() {
+		TrayIcons.indicators.set_style('margin-left: ' + this._settings.get_int('tray-margin-left') + 'px; margin-right: ' + this._settings.get_int('tray-margin-right') + 'px');
 	}
 
 	_setTrayArea() {
@@ -51,10 +51,11 @@ class Extension {
 	_onChange() {
 		this._settings.connect('changed::tray-position', this._setTrayArea.bind(this));
 		this._settings.connect('changed::position-weight', this._setTrayArea.bind(this));
+		this._settings.connect('changed::tray-margin-left', this._setTrayMargin.bind(this));
+		this._settings.connect('changed::tray-margin-right', this._setTrayMargin.bind(this));
 		this._settings.connect('changed::icon-size', this._setIconSize.bind(this));
 		this._settings.connect('changed::icon-button-size', this._setIconSize.bind(this));
 		this._settings.connect('changed::icon-margin', this._setIconSize.bind(this));
-		this._settings.connect('changed::tray-left-margin', this._setMarginLeft.bind(this));
 		this._settings.connect('changed::icon-saturation', this._setIconEffect.bind(this));
 		this._settings.connect('changed::icon-contrast', this._setIconEffect.bind(this));
 		this._settings.connect('changed::icon-brightness', this._setIconEffect.bind(this));
@@ -63,8 +64,8 @@ class Extension {
     enable() {
 		TrayIcons = new TrayIconsClass();
 		this._settings = getSettings();
+		this._setTrayMargin();
 		this._setIconSize();
-		this._setMarginLeft();
 		this._onChange();
 
 		if (Main.layoutManager._startingUp) {

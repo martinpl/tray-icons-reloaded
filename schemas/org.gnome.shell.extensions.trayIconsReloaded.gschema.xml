@@ -8,6 +8,14 @@
       <default>0</default>
       <summary>Position weight</summary>
     </key>
+	<key name="tray-margin-left" type="i">
+      <default>4</default>
+      <summary>Tray icons left margin</summary>
+    </key>
+	<key name="tray-margin-right" type="i">
+      <default>0</default>
+      <summary>Tray icons left margin</summary>
+    </key>
 	<key name="icons-limit" type="i">
       <default>4</default>
       <summary>Icons limit</summary>
@@ -23,10 +31,6 @@
     <key name="icon-margin" type="i">
       <default>4</default>
       <summary>Icon margin</summary>
-    </key>
-    <key name="tray-left-margin" type="i">
-      <default>4</default>
-      <summary>Tray icons left margin</summary>
     </key>
 	<key name="icon-saturation" type="i">
       <default>0</default>
