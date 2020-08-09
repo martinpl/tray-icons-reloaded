@@ -109,7 +109,7 @@ const settingsWidgets = new GObject.Class({
 	
 	_footer() {
 		label = new Gtk.LinkButton({ label: 'GitHub', uri: 'https://github.com/MartinPL/Tray-Icons-Reloaded', hexpand: true, halign: Gtk.Align.CENTER });
-        this.attach(label, 0, 9, 2, 1);
+        this.attach(label, 0, 11, 2, 1);
 	}
 
 });
