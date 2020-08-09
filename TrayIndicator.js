@@ -139,12 +139,11 @@ var TrayIndicator = new imports.lang.Class({
 	},
 
 	_getButtonStyle() {
-		let margin;
+		let style;
 		if(!this._overflow) {
-		    margin = `margin: 0 ${this._margin}px;`;
-		    margin += `padding: 0 ${this._padding}px`
+		    style = `margin: 0 ${this._margin}px; padding: 0 ${this._padding}px`;
 		}
-		return `width: ${this.size}px; height: ${this.size}px;${margin}`;
+		return `width: ${this.size}px; height: ${this.size}px;${style}`;
 	},
 
 	_addEffectIcon(icon) {

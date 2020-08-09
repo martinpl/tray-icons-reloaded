@@ -34,7 +34,6 @@ const settingsWidgets = new GObject.Class({
         this.attach(label, 0, 1, 1, 1);
 		this.attach(widget, 2, 1, 1, 1);
 
-
         label = new Gtk.Label({ label: 'Tray margin (left | right)', hexpand: true, halign: Gtk.Align.START });
         widget = new Gtk.SpinButton({halign:Gtk.Align.END});
         widget.set_range(0, 24);
@@ -64,58 +63,56 @@ const settingsWidgets = new GObject.Class({
         this.attach(label, 0, 4, 1, 1);
         this.attach(widget, 2, 4, 1, 1);
 
-        label = new Gtk.Label({ label: 'Icon button size', hexpand: true, halign: Gtk.Align.START });
-        widget = new Gtk.SpinButton({halign:Gtk.Align.END});
-        widget.set_range(0, 24);
-		widget.set_increments(1, 1);
-		this._settings.bind('icon-button-size', widget, 'value', Gio.SettingsBindFlags.DEFAULT);
-        this.attach(label, 0, 5, 1, 1);
-        this.attach(widget, 2, 5, 1, 1);
-
-        label = new Gtk.Label({ label: 'Icon margin', hexpand: true, halign: Gtk.Align.START });
+        label = new Gtk.Label({ label: 'Icon space (margin | padding)', hexpand: true, halign: Gtk.Align.START });
         widget = new Gtk.SpinButton({halign:Gtk.Align.END});
         widget.set_range(0, 24);
 		widget.set_increments(1, 1);
 		this._settings.bind('icon-margin', widget, 'value', Gio.SettingsBindFlags.DEFAULT);
-        this.attach(label, 0, 6, 1, 1);
-		this.attach(widget, 2, 6, 1, 1);
+        this.attach(label, 0, 5, 1, 1);
+		this.attach(widget, 1, 5, 1, 1);
+        widget = new Gtk.SpinButton({halign:Gtk.Align.END});
+        widget.set_range(0, 24);
+		widget.set_increments(1, 1);
+		this._settings.bind('icon-padding', widget, 'value', Gio.SettingsBindFlags.DEFAULT);
+        this.attach(label, 0, 5, 1, 1);
+        this.attach(widget, 2, 5, 1, 1);
 
 		label = new Gtk.Label({ label: 'Icon saturation', hexpand: true, halign: Gtk.Align.START });
 		widget = new Gtk.SpinButton({halign:Gtk.Align.END});
         widget.set_range(0, 100);
 		widget.set_increments(10, 20);
 		this._settings.bind('icon-saturation', widget, 'value', Gio.SettingsBindFlags.DEFAULT);
-        this.attach(label, 0, 7, 1, 1);
-		this.attach(widget, 2, 7, 1, 1);
+        this.attach(label, 0, 6, 1, 1);
+		this.attach(widget, 2, 6, 1, 1);
 
 		label = new Gtk.Label({ label: 'Icon contrast', hexpand: true, halign: Gtk.Align.START });
 		widget = new Gtk.SpinButton({halign:Gtk.Align.END});
         widget.set_range(-100, 100);
 		widget.set_increments(10, 20);
 		this._settings.bind('icon-contrast', widget, 'value', Gio.SettingsBindFlags.DEFAULT);
-        this.attach(label, 0, 8, 1, 1);
-		this.attach(widget, 2, 8, 1, 1);
+        this.attach(label, 0, 7, 1, 1);
+		this.attach(widget, 2, 7, 1, 1);
 
 		label = new Gtk.Label({ label: 'Icon brightness', hexpand: true, halign: Gtk.Align.START });
 		widget = new Gtk.SpinButton({halign:Gtk.Align.END});
 		widget.set_range(-100, 100);
 		widget.set_increments(10, 20);
 		this._settings.bind('icon-brightness', widget, 'value', Gio.SettingsBindFlags.DEFAULT);
-        this.attach(label, 0, 9, 1, 1);
-		this.attach(widget, 2, 9, 1, 1);
+        this.attach(label, 0, 8, 1, 1);
+		this.attach(widget, 2, 8, 1, 1);
 		
         label = new Gtk.Label({ label: 'Modify Wine apps behavior', hexpand: true, halign: Gtk.Align.START });
         widget = new Gtk.Switch({halign:Gtk.Align.END});
 		this._settings.bind('wine-behavior', widget, 'active', Gio.SettingsBindFlags.DEFAULT);
-        this.attach(label, 0, 10, 1, 1);
-		this.attach(widget, 2, 10, 1, 1);
+        this.attach(label, 0, 9, 1, 1);
+		this.attach(widget, 2, 9, 1, 1);
 
 		this._footer();
 	},
 	
 	_footer() {
 		label = new Gtk.LinkButton({ label: 'GitHub', uri: 'https://github.com/MartinPL/Tray-Icons-Reloaded', hexpand: true, halign: Gtk.Align.CENTER });
-        this.attach(label, 0, 11, 3, 1);
+        this.attach(label, 0, 10, 3, 1);
 	}
 
 });

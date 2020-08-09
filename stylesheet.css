@@ -1,6 +1,5 @@
 .TrayIndicator StButton, 
 .TrayIndicatorPopup StButton {
-	padding: 0 6px;
 	transition-property: background-color;
 	transition-duration: .1s;
 	transition-timing-function: linear;
