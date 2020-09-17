@@ -14,3 +14,8 @@
 	padding: 8px;
 	border-radius: 6px;
 }
+
+.panel-button.TrayIndicator {
+	-natural-hpadding: 0;
+	-minimum-hpadding: 0;
+}

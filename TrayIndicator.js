@@ -16,7 +16,7 @@ var TrayIndicator = new imports.lang.Class({
 		this._icons = [];
 
 		this.parent(0.0, null, false);
-		this.style_class = '';
+		this.style_class = 'panel-button'; 
 
 		this._indicators = new St.BoxLayout();
 		this.add_child(this._indicators);
@@ -120,7 +120,7 @@ var TrayIndicator = new imports.lang.Class({
 			} else {
 				this._overflow = false;
 				this._icon.visible = false;
-				this.style_class = 'TrayIndicator'; 
+				this.style_class = 'panel-button TrayIndicator'; 
 				this.reactive = false;
 			}
 
