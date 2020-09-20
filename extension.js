@@ -44,6 +44,10 @@ class Extension {
 		Main.panel.addToStatusArea('TrayIconsReloaded' + Math.random(), TrayIcons.indicators, this._settings.get_int('position-weight'), this._settings.get_string('tray-position'));
 	}
 
+	_setIconsLimit() {
+		TrayIcons.indicators.checkOverflow();
+	}
+
 	_setIconEffect() {
 		TrayIcons.indicators.setEffect(this._settings.get_int('icon-contrast'), this._settings.get_int('icon-saturation'), this._settings.get_int('icon-brightness'));
 	}
@@ -56,6 +60,7 @@ class Extension {
 		this._settings.connect('changed::icon-size', this._setIconSize.bind(this));
 		this._settings.connect('changed::icon-margin', this._setIconSize.bind(this));
 		this._settings.connect('changed::icon-padding', this._setIconSize.bind(this));
+		this._settings.connect('changed::icons-limit',  this._setIconsLimit.bind());
 		this._settings.connect('changed::icon-saturation', this._setIconEffect.bind(this));
 		this._settings.connect('changed::icon-contrast', this._setIconEffect.bind(this));
 		this._settings.connect('changed::icon-brightness', this._setIconEffect.bind(this));
