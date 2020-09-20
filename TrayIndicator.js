@@ -55,6 +55,7 @@ var TrayIndicator = new imports.lang.Class({
 		const button = new St.Button({ child: icon, button_mask: St.ButtonMask.ONE | St.ButtonMask.TWO | St.ButtonMask.THREE, style: this._getButtonStyle() });
 		
 		icon.opacity = 0;
+		icon.set_x_align(Clutter.ActorAlign.CENTER);
 		icon.set_y_align(Clutter.ActorAlign.CENTER);
 		icon.inOverflow = this._overflow;
 		GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () => {
