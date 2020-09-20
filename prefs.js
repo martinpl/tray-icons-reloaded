@@ -50,7 +50,7 @@ const settingsWidgets = new GObject.Class({
 		this._settings.bind('tray-margin-right', widget, 'value', Gio.SettingsBindFlags.DEFAULT);
 		this.attach(widget, 2, 1, 1, 1);
 
-		label = new Gtk.Label({ label: 'Icons limit', hexpand: true, halign: Gtk.Align.START });
+		label = new Gtk.Label({ label: 'Tray icons limit', hexpand: true, halign: Gtk.Align.START });
 		widget = new Gtk.SpinButton({halign:Gtk.Align.END});
 		widget.set_range(1, 16);
 		widget.set_increments(1, 1);
