@@ -1,7 +1,7 @@
 UUID = trayIconsReloaded@selfmade.pl
 FILES = metadata.json extension.js TrayIndicator.js AppManager.js prefs.js stylesheet.css
 
-_build: 
+_build:
 	-rm -fR ./_build
 	mkdir -p _build
 	cp $(FILES) _build

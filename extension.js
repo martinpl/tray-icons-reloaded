@@ -61,7 +61,7 @@ class Extension {
 		this._settings.connect('changed::icon-brightness', this._setIconEffect.bind(this));
 	}
 
-    enable() {
+	enable() {
 		TrayIcons = new TrayIconsClass();
 		this._settings = getSettings();
 		this._setTrayMargin();
@@ -69,21 +69,21 @@ class Extension {
 		this._onChange();
 
 		if (Main.layoutManager._startingUp) {
-			this._startupComplete = Main.layoutManager.connect('startup-complete', () => { 
+			this._startupComplete = Main.layoutManager.connect('startup-complete', () => {
 				this._setTrayArea();
 				Main.layoutManager.disconnect(this._startupComplete);
 			});
 		} else {
 			this._setTrayArea();
 		}
-    }
+	}
 
-    disable() {
+	disable() {
 		TrayIcons._destroy();
 		this._settings.run_dispose();
 	}
 }
 
 function init() {
-    return new Extension();
+	return new Extension();
 }

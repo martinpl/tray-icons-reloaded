@@ -141,7 +141,7 @@ var TrayIndicator = new imports.lang.Class({
 	_getButtonStyle() {
 		let style;
 		if(!this._overflow) {
-		    style = `margin: 0 ${this._margin}px; padding: 0 ${this._padding}px`;
+			style = `margin: 0 ${this._margin}px; padding: 0 ${this._padding}px`;
 		}
 		return `width: ${this.size}px; height: ${this.size}px;${style}`;
 	},

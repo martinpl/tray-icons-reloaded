@@ -17,7 +17,7 @@ const getTrayApp = function(icon) {
 		for(let lookup of searchedApps[0]) {
 			let app = AppSystem.get_default().lookup_app(lookup);
 			if(app.get_windows() != '' || i == searchedApps[0].length) {
-				return app;	
+				return app;
 			}
 			i++;
 		}
@@ -35,7 +35,7 @@ const toggleWindows = function (icon, event) {
 		if(windows == '') {
 			if(isUsingQt(getPid(icon))) { return icon.click(event); }
 			return trayApp.open_new_window(0);
-		} 
+		}
 
 		if(focusedApp != null && focusedApp.id == trayApp.id) {
 			if(isUsingQt(getPid(icon))) { return icon.click(event); }
@@ -51,7 +51,7 @@ const toggleWindows = function (icon, event) {
 		}
 	} else {
 		icon.click(event);
-		if(isWine(icon)) { 
+		if(isWine(icon)) {
 			icon.click(event);
 		}
 	}
