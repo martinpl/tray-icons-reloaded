@@ -12,6 +12,8 @@ const settingsWidgets = new GObject.Class({
         this.margin = 24;
         this.spacing = 28;
         this.row_spacing = 16;
+		this.halign = Gtk.Align.CENTER;
+		this.width_request = 620;
 		this._settings = getSettings();
 		
         let label;
