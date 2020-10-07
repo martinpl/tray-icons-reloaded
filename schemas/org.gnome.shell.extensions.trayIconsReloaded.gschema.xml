@@ -8,15 +8,15 @@
       <default>0</default>
       <summary>Position weight</summary>
     </key>
-	<key name="tray-margin-left" type="i">
+    <key name="tray-margin-left" type="i">
       <default>4</default>
       <summary>Tray icons left margin</summary>
     </key>
-	<key name="tray-margin-right" type="i">
+    <key name="tray-margin-right" type="i">
       <default>0</default>
       <summary>Tray icons left margin</summary>
     </key>
-	<key name="icons-limit" type="i">
+    <key name="icons-limit" type="i">
       <default>4</default>
       <summary>Icons limit</summary>
     </key>
@@ -24,23 +24,31 @@
       <default>20</default>
       <summary>Icon size</summary>
     </key>
-    <key name="icon-margin" type="i">
+    <key name="icon-margin-vertical" type="i">
+      <default>0</default>
+      <summary>Icon margin vertical</summary>
+    </key>
+    <key name="icon-margin-horizontal" type="i">
       <default>4</default>
-      <summary>Icon margin</summary>
+      <summary>Icon margin horizontal</summary>
     </key>
-	<key name="icon-padding" type="i">
+    <key name="icon-padding-vertical" type="i">
+      <default>0</default>
+      <summary>Icon padding vertical</summary>
+    </key>
+    <key name="icon-padding-horizontal" type="i">
       <default>6</default>
-      <summary>Icon button size</summary>
+      <summary>Icon padding horizontal</summary>
     </key>
-	<key name="icon-saturation" type="i">
+    <key name="icon-saturation" type="i">
       <default>0</default>
       <summary>Icon contrast</summary>
     </key>
-	<key name="icon-contrast" type="i">
+    <key name="icon-contrast" type="i">
       <default>0</default>
       <summary>Icon contrast</summary>
     </key>
-	<key name="icon-brightness" type="i">
+    <key name="icon-brightness" type="i">
       <default>0</default>
       <summary>Icon contrast</summary>
     </key>

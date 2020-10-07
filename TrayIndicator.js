@@ -53,7 +53,7 @@ var TrayIndicator = new imports.lang.Class({
 
 	addIcon(icon) {
 		const button = new St.Button({ child: icon, button_mask: St.ButtonMask.ONE | St.ButtonMask.TWO | St.ButtonMask.THREE, style: this._getButtonStyle() });
-		
+
 		icon.opacity = 0;
 		icon.set_x_align(Clutter.ActorAlign.CENTER);
 		icon.set_y_align(Clutter.ActorAlign.CENTER);
@@ -142,7 +142,7 @@ var TrayIndicator = new imports.lang.Class({
 	_getButtonStyle() {
 		let style;
 		if(!this._overflow) {
-			style = `margin: 0 ${this._margin}px; padding: 0 ${this._padding}px`;
+			style = `margin: ${this._margin.vertical}px ${this._margin.horizontal}px; padding: ${this._padding.vertical}px ${this._padding.horizontal}px`;
 		}
 		return `width: ${this.size}px; height: ${this.size}px;${style}`;
 	},
