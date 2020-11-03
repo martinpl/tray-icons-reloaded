@@ -1,6 +1,6 @@
 # Tray Icons Reloaded
 [<img src="https://raw.githubusercontent.com/andyholmes/gnome-shell-extensions-badge/master/get-it-on-ego.svg?sanitize=true" height="100" align="right">](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/)
-Tray Icons Reloaded is a GNOME Shell 3.36 extension which bring back Tray Icons to top panel, with additional favore.
+Tray Icons Reloaded is a GNOME Shell extension which bring back Tray Icons to top panel, with additional features.
 
 ### Compatibility
 Its only works with [Xorg](https://wiki.archlinux.org/index.php/GDM#Use_Xorg_backend) and XWayland. If you have some trouble you can try [snixembed](https://git.sr.ht/~steef/snixembed) its also adds visual native menus in all apps.
