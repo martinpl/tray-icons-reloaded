@@ -17,6 +17,7 @@ var TrayIndicator = new imports.lang.Class({
 
 		this.parent(0.0, null, false);
 		this.style_class = 'panel-button TrayIndicator'; 
+		this._overflow = false;
 
 		this._indicators = new St.BoxLayout();
 		this.add_child(this._indicators);
@@ -138,7 +139,6 @@ var TrayIndicator = new imports.lang.Class({
 			if(icon.inOverflow != overflow) {
 				this.removeIcon(icon, true);
 				this.addIcon(icon);
-				this.checkOverflow();
 			}
 		});
 	},
