@@ -16,7 +16,7 @@ var TrayIndicator = new imports.lang.Class({
 		this._icons = [];
 
 		this.parent(0.0, null, false);
-		this.style_class = 'panel-button'; 
+		this.style_class = 'panel-button TrayIndicator'; 
 
 		this._indicators = new St.BoxLayout();
 		this.add_child(this._indicators);
@@ -112,21 +112,25 @@ var TrayIndicator = new imports.lang.Class({
 	},
 
 	checkOverflow() {
-		if(!this._ignoreCheckOverflow) {
-			if(this._icons.length >= getSettings().get_int('icons-limit')) {
-				this._overflow = true;
-				this._icon.visible = true;
-				this.style_class = 'panel-button';
-				this.reactive = true;
-			} else {
-				this._overflow = false;
-				this._icon.visible = false;
-				this.style_class = 'panel-button TrayIndicator'; 
-				this.reactive = false;
-			}
-
-			this._refreshIcons(this._overflow);
+		if(this._icons.length >= getSettings().get_int('icons-limit')) {
+			this._overflow = true;
+			this._icon.visible = true;
+			this.style_class = 'panel-button';
+			this.reactive = true;
+		} else {
+			this._overflow = false;
+			this._icon.visible = false;
+			this.style_class = 'panel-button TrayIndicator'; 
+			this.reactive = false;
 		}
+
+		if(this._icons.length) {
+			this.visible = true;
+		} else {
+			this.visible = false;
+		}
+		
+		this._refreshIcons(this._overflow);
 	},
 
 	_refreshIcons(overflow) {
