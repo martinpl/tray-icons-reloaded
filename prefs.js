@@ -120,18 +120,24 @@ const settingsWidgets = new GObject.Class({
 		this.attach(label, 2, 6, 1, 1);
 		this.attach(widget, 2, 7, 1, 1);
 
+		label = new Gtk.Label({ label: 'Invoke windows to current workspace', hexpand: true, halign: Gtk.Align.START });
+		widget = new Gtk.Switch({ halign: Gtk.Align.END })
+		this._settings.bind('invoke-to-workspace', widget, 'active', Gio.SettingsBindFlags.DEFAULT)
+		this.attach(label, 0, 8, 2, 1);
+		this.attach(widget, 2, 8, 1, 1)
+
 		label = new Gtk.Label({ label: 'Modify Wine apps behavior', hexpand: true, halign: Gtk.Align.START });
 		widget = new Gtk.Switch({halign:Gtk.Align.END});
 		this._settings.bind('wine-behavior', widget, 'active', Gio.SettingsBindFlags.DEFAULT);
-		this.attach(label, 0, 8, 2, 1);
-		this.attach(widget, 2, 8, 1, 1);
+		this.attach(label, 0, 9, 2, 1);
+		this.attach(widget, 2, 9, 1, 1);
 
 		this._footer();
 	},
 
 	_footer() {
 		label = new Gtk.LinkButton({ label: 'GitHub', uri: 'https://github.com/MartinPL/Tray-Icons-Reloaded', hexpand: true, halign: Gtk.Align.CENTER });
-		this.attach(label, 0, 9, 3, 1);
+		this.attach(label, 0, 10, 3, 1);
 	}
 
 });
