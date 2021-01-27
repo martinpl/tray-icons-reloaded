@@ -44,7 +44,9 @@ const toggleWindows = function (icon, event) {
 			});
 		} else {
 			windows.forEach(window => {
-				window.change_workspace(global.workspace_manager.get_active_workspace());
+				if (getSettings().get_boolean('invoke-to-workspace')) {
+					window.change_workspace(global.workspace_manager.get_active_workspace());
+				}
 				trayApp.activate_window(window, event.get_time());
 				window.unminimize(event);
 			});

@@ -56,5 +56,9 @@
       <default>true</default>
       <summary>Wine behavior</summary>
     </key>
+    <key name="invoke-to-workspace" type="b">
+      <default>false</default>
+      <summary>Whether to invoke window to current workspace</summary>
+    </key>
   </schema>
 </schemalist>
