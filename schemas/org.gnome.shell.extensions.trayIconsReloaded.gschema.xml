@@ -52,13 +52,13 @@
       <default>0</default>
       <summary>Icon contrast</summary>
     </key>
+	<key name="invoke-to-workspace" type="b">
+      <default>true</default>
+      <summary>Whether to invoke window to current workspace</summary>
+    </key>
     <key name="wine-behavior" type="b">
       <default>true</default>
       <summary>Wine behavior</summary>
-    </key>
-    <key name="invoke-to-workspace" type="b">
-      <default>false</default>
-      <summary>Whether to invoke window to current workspace</summary>
     </key>
   </schema>
 </schemalist>
