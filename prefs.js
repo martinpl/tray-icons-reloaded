@@ -144,7 +144,6 @@ const settingsWidgets = new GObject.Class({
 
 function buildPrefsWidget() {
 	const widgets = new settingsWidgets();
-	widgets.show_all();
 
 	return widgets;
 }
