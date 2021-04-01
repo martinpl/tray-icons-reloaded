@@ -9,8 +9,10 @@ const settingsWidgets = new GObject.Class({
 
 	_init() {
 		this.parent();
-		this.margin = 24;
-		this.spacing = 28;
+		this.margin_top = 32;
+		this.margin_bottom = 32;
+		this.margin_start = 32;
+		this.margin_end = 32;
 		this.row_spacing = 16;
 		this.halign = Gtk.Align.CENTER;
 		this.width_request = 620;
