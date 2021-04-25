@@ -16,7 +16,7 @@ var TrayIndicator = new imports.lang.Class({
 		this._icons = [];
 
 		this.parent(0.0, null, false);
-		this.style_class = 'panel-button TrayIndicator'; 
+		this.style_class = 'panel-button TrayIndicator'; // panel-button class is material shell compatibility fix
 		this._overflow = false;
 
 		this._indicators = new St.BoxLayout();
@@ -53,8 +53,7 @@ var TrayIndicator = new imports.lang.Class({
 	},
 
 	addIcon(icon) {
-		const button = new St.Button({ child: icon, button_mask: St.ButtonMask.ONE | St.ButtonMask.TWO | St.ButtonMask.THREE, style: this._getButtonStyle() });
-
+		const button = new St.Button({ child: icon, button_mask: St.ButtonMask.ONE | St.ButtonMask.TWO | St.ButtonMask.THREE, style: this._getButtonStyle(), style_class: 'panel-button' });
 		icon.opacity = 0;
 		icon.set_x_align(Clutter.ActorAlign.CENTER);
 		icon.set_y_align(Clutter.ActorAlign.CENTER);
@@ -116,13 +115,13 @@ var TrayIndicator = new imports.lang.Class({
 		if(this._icons.length >= getSettings().get_int('icons-limit')) {
 			this._overflow = true;
 			this._icon.visible = true;
-			this.style_class = 'panel-button';
 			this.reactive = true;
+			this.style = 'color: inherit;';	// workaround: force removing else styling
 		} else {
 			this._overflow = false;
 			this._icon.visible = false;
-			this.style_class = 'panel-button TrayIndicator'; 
 			this.reactive = false;
+			this.style = '-natural-hpadding: 0; -minimum-hpadding: 0;';
 		}
 
 		if(this._icons.length) {
@@ -170,5 +169,4 @@ var TrayIndicator = new imports.lang.Class({
 
 		});
 	}
-
 });
