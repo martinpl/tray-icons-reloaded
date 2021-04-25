@@ -37,7 +37,7 @@
 			<summary>Icon padding vertical</summary>
 		</key>
 		<key name="icon-padding-horizontal" type="i">
-			<default>6</default>
+			<default>16</default>
 			<summary>Icon padding horizontal</summary>
 		</key>
 		<key name="icon-saturation" type="i">
