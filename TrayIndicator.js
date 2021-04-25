@@ -16,7 +16,7 @@ var TrayIndicator = new imports.lang.Class({
 		this._icons = [];
 
 		this.parent(0.0, null, false);
-		this.style_class = 'panel-button TrayIndicator'; // panel-button class is material shell compatibility fix
+		this.style_class = 'panel-button TrayIndicator TrayIndicator--on-view';
 		this._overflow = false;
 
 		this._indicators = new St.BoxLayout();
@@ -116,12 +116,12 @@ var TrayIndicator = new imports.lang.Class({
 			this._overflow = true;
 			this._icon.visible = true;
 			this.reactive = true;
-			this.style = 'color: inherit;';	// workaround: force removing else styling
+			this.style_class = 'panel-button TrayIndicator TrayIndicator--overflow'; 
 		} else {
 			this._overflow = false;
 			this._icon.visible = false;
 			this.reactive = false;
-			this.style = '-natural-hpadding: 0; -minimum-hpadding: 0;';
+			this.style_class = 'panel-button TrayIndicator TrayIndicator--on-view'; 
 		}
 
 		if(this._icons.length) {

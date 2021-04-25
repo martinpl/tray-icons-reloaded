@@ -1,3 +1,12 @@
+.TrayIndicator--on-view {
+	-natural-hpadding: 0;
+	-minimum-hpadding: 0;
+}
+
+.TrayIndicator--overflow  {
+	color: inherit;	/* workaround: force repaint paddings */
+}
+
 .TrayIndicatorPopup StButton {
 	padding: 8px;
 	border-radius: 6px;
