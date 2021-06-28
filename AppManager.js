@@ -3,7 +3,7 @@ const WindowTracker = imports.gi.Shell.WindowTracker;
 const getSettings = imports.misc.extensionUtils.getSettings;
 const GLib = imports.gi.GLib;
 
-const getTrayApp = function (icon) {
+var getTrayApp = function (icon) {
 	if (isWine(icon)) {
 		const wineApps = AppSystem.get_default()
 			.get_running()
@@ -28,7 +28,7 @@ const getTrayApp = function (icon) {
 	}
 };
 
-const toggleWindows = function (icon, event) {
+var toggleWindows = function (icon, event) {
 	let trayApp = getTrayApp(icon);
 	if (trayApp) {
 		let focusedApp = WindowTracker.get_default().focusApp;
@@ -56,7 +56,7 @@ const toggleWindows = function (icon, event) {
 					);
 				}
 				trayApp.activate_window(window, event.get_time());
-				window.unminimize(event);
+				window.unminimize();
 			});
 		}
 	} else {
@@ -67,7 +67,7 @@ const toggleWindows = function (icon, event) {
 	}
 };
 
-const killWindows = function (icon, event) {
+var killWindows = function (icon, event) {
 	if (event.get_state_full()[1] === 1) {
 		// If holding SHIFT
 		let trayApp = getTrayApp(icon);
