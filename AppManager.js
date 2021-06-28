@@ -23,56 +23,43 @@ var getTrayApp = function (icon) {
 			}
 			i++;
 		}
-	} else {
-		return false;
 	}
+
+	return false;
 };
 
-var toggleWindows = function (icon, event) {
+var leftClick = function (icon, event) {
 	let trayApp = getTrayApp(icon);
 	if (trayApp) {
 		let focusedApp = WindowTracker.get_default().focusApp;
 		let windows = trayApp.get_windows();
 
 		if (windows == "") {
-			if (isUsingQt(getPid(icon))) {
-				return icon.click(event);
-			}
-			return trayApp.open_new_window(0);
+			return openApplication(trayApp, icon, event);
 		}
 
 		if (focusedApp != null && focusedApp.id == trayApp.id) {
-			if (isUsingQt(getPid(icon))) {
-				return icon.click(event);
-			}
-			focusedApp.get_windows().forEach((window) => {
-				window.minimize();
-			});
-		} else {
-			windows.forEach((window) => {
-				if (getSettings().get_boolean("invoke-to-workspace")) {
-					window.change_workspace(
-						global.workspace_manager.get_active_workspace()
-					);
-				}
-				trayApp.activate_window(window, event.get_time());
-				window.unminimize();
-			});
+			return minimizeWindows(focusedApp.get_windows(), icon, event);
 		}
-	} else {
+
+		return activateWindows(windows, trayApp, event);
+	}
+
+	icon.click(event);
+
+	// On Windows double-click restore app
+	if (isWine(icon)) {
 		icon.click(event);
-		if (isWine(icon)) {
-			icon.click(event);
-		}
 	}
 };
 
-var killWindows = function (icon, event) {
+var middleClick = function (icon, event) {
+	// When holding SHIFT
 	if (event.get_state_full()[1] === 1) {
-		// If holding SHIFT
 		let trayApp = getTrayApp(icon);
 		if (trayApp) {
 			const pid = getPid(icon);
+			// Kill app
 			if (isUsingQt(pid)) {
 				return GLib.spawn_command_line_sync(`/bin/kill ${pid}`);
 			}
@@ -84,6 +71,34 @@ var killWindows = function (icon, event) {
 		}
 	}
 };
+
+function openApplication(trayApp, icon, event) {
+	if (isUsingQt(getPid(icon))) {
+		return icon.click(event);
+	}
+
+	trayApp.open_new_window(0);
+}
+
+function minimizeWindows(windows, icon, event) {
+	if (isUsingQt(getPid(icon))) {
+		return icon.click(event);
+	}
+
+	windows.forEach((window) => {
+		window.minimize();
+	});
+}
+
+function activateWindows(windows, trayApp, event) {
+	windows.forEach((window) => {
+		if (getSettings().get_boolean("invoke-to-workspace")) {
+			window.change_workspace(global.workspace_manager.get_active_workspace());
+		}
+		trayApp.activate_window(window, event.get_time());
+		window.unminimize();
+	});
+}
 
 function isWine(icon) {
 	if (
