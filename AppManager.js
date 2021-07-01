@@ -2,6 +2,7 @@ const AppSystem = imports.gi.Shell.AppSystem;
 const WindowTracker = imports.gi.Shell.WindowTracker;
 const getSettings = imports.misc.extensionUtils.getSettings;
 const GLib = imports.gi.GLib;
+const Me = imports.misc.extensionUtils.getCurrentExtension();
 
 var leftClick = function (icon, event) {
 	let trayApp = getTrayApp(icon);
@@ -73,11 +74,11 @@ function getTrayApp(icon) {
 }
 
 function openApplication(trayApp, icon, event) {
-	if (isUsingQt(getPid(icon))) {
+	if (Me.metadata["broken-left-click"].includes(icon.wm_class)) {
+		trayApp.open_new_window(0);
+	} else {
 		return icon.click(event);
 	}
-
-	trayApp.open_new_window(0);
 }
 
 function minimizeWindows(windows, icon, event) {
