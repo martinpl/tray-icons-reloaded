@@ -3,31 +3,6 @@ const WindowTracker = imports.gi.Shell.WindowTracker;
 const getSettings = imports.misc.extensionUtils.getSettings;
 const GLib = imports.gi.GLib;
 
-var getTrayApp = function (icon) {
-	if (isWine(icon)) {
-		const wineApps = AppSystem.get_default()
-			.get_running()
-			.filter((app) => {
-				return app.get_windows()[0].wm_class.includes(".exe");
-			});
-		return wineApps[0];
-	}
-
-	const searchedApps = AppSystem.search(getWmClass(icon.wm_class));
-	if (searchedApps[0] && searchedApps[0][0]) {
-		var i = 1;
-		for (let lookup of searchedApps[0]) {
-			let app = AppSystem.get_default().lookup_app(lookup);
-			if (app.get_windows() != "" || i == searchedApps[0].length) {
-				return app;
-			}
-			i++;
-		}
-	}
-
-	return false;
-};
-
 var leftClick = function (icon, event) {
 	let trayApp = getTrayApp(icon);
 	if (trayApp) {
@@ -71,6 +46,31 @@ var middleClick = function (icon, event) {
 		}
 	}
 };
+
+function getTrayApp(icon) {
+	if (isWine(icon)) {
+		const wineApps = AppSystem.get_default()
+			.get_running()
+			.filter((app) => {
+				return app.get_windows()[0].wm_class.includes(".exe");
+			});
+		return wineApps[0];
+	}
+
+	const searchedApps = AppSystem.search(getWmClass(icon.wm_class));
+	if (searchedApps[0] && searchedApps[0][0]) {
+		var i = 1;
+		for (let lookup of searchedApps[0]) {
+			let app = AppSystem.get_default().lookup_app(lookup);
+			if (app.get_windows() != "" || i == searchedApps[0].length) {
+				return app;
+			}
+			i++;
+		}
+	}
+
+	return false;
+}
 
 function openApplication(trayApp, icon, event) {
 	if (isUsingQt(getPid(icon))) {
