@@ -138,8 +138,10 @@ const settingsWidgets = new GObject.Class({
 	},
 
 	_footer() {
-		label = new Gtk.LinkButton({ label: 'GitHub', uri: 'https://github.com/MartinPL/Tray-Icons-Reloaded', hexpand: true, halign: Gtk.Align.CENTER });
-		this.attach(label, 0, 10, 3, 1);
+		label = new Gtk.LinkButton({ label: 'GitHub', uri: 'https://github.com/MartinPL/Tray-Icons-Reloaded', hexpand: true, halign: Gtk.Align.START });
+		this.attach(label, 1, 10, 1, 1);
+		label = new Gtk.LinkButton({ label: 'Donate', uri: 'https://revolut.me/martinpl', hexpand: true, halign: Gtk.Align.END });
+		this.attach(label, 1, 10, 1, 1);
 	}
 
 });
