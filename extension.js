@@ -43,7 +43,8 @@ class Extension {
 	}
 
 	_setTrayArea() {
-		Main.panel.addToStatusArea('TrayIconsReloaded' + Math.random(), TrayIcons.indicators, this._settings.get_int('position-weight'), this._settings.get_string('tray-position'));
+		Main.panel.statusArea['TrayIconsReloaded'] = null;
+		Main.panel.addToStatusArea('TrayIconsReloaded', TrayIcons.indicators, this._settings.get_int('position-weight'), this._settings.get_string('tray-position'));
 	}
 
 	_setIconsLimit() {
