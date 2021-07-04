@@ -74,7 +74,8 @@ function getTrayApp(icon) {
 }
 
 function openApplication(trayApp, icon, event) {
-	if (Me.metadata["broken-left-click"].includes(icon.wm_class)) {
+	const isFlatpak = trayApp.app_info.has_key("X-Flatpak");
+	if (Me.metadata["broken-left-click"].includes(icon.wm_class) && !isFlatpak) {
 		trayApp.open_new_window(0);
 	} else {
 		return icon.click(event);
