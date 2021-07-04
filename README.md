@@ -25,7 +25,7 @@ If you are on Wayland and app don't run through XWayland you can force it via co
 
 <img src=".github/settings.png">
 
-- fix left click for Steam (report if you find app invoking menu on left mouse click)
+- fix left click for Steam (not on flatpak; report if you find app invoking menu on left mouse click)
 - fast app killing (SHIFT + mouse middle click)
 - window are invoked to current workspace (by default)
 - work with Wine (left and middle click affect all wine apps)
