@@ -1,25 +1,43 @@
 # Tray Icons Reloaded
+
 [<img src="https://raw.githubusercontent.com/andyholmes/gnome-shell-extensions-badge/master/get-it-on-ego.svg?sanitize=true" height="100" align="right">](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/)
-Tray Icons Reloaded is a GNOME Shell extension which bring back Tray Icons to top panel, with additional features.
+Tray Icons Reloaded is a [GNOME Shell](https://www.gnome.org/) extension which bring back Tray Icons to top panel, with additional features.
 
-### Compatibility
-Its only works with [Xorg](https://wiki.archlinux.org/index.php/GDM#Use_Xorg_backend) and XWayland. If you have some trouble you can try [snixembed](https://git.sr.ht/~steef/snixembed) its also adds visual native menus in all apps.
+## Compatibility
 
-### Features
-* left click works with apps which don't support this natively (Steam, Discord etc)
-* SHIFT + middle click kill app
-* window are invoked to current workspace
-* overflow mode
-* settings (position, icons limit, icon size, Wine behavior)
-* work with Wine in limited way (left and middle click affect all wine apps)
+It's only works with [Xorg](https://wiki.archlinux.org/index.php/GDM#Use_Xorg_backend) and XWayland.
+If you have some trouble with compatibility you can try [snixembed](https://git.sr.ht/~steef/snixembed) it also adds visual native menus.
 
-### Installation
+## Wayland
+
+If you are on Wayland and app don't run through XWayland you can force it via command:
+`GDK_BACKEND=x11 app_name`
+
+## Features
+
+### Overflow mode
+
+<img src=".github/overflow.png">
+
+(default when there more than 3 items in tray)
+
+### Rich settings
+
+<img src=".github/settings.png">
+
+- fix left click for Steam (report if you find app invoking menu on left mouse click)
+- fast app killing (SHIFT + mouse middle click)
+- window are invoked to current workspace (by default)
+- work with Wine (left and middle click affect all wine apps)
+
+## Installation
+
 Grab it from [extensions.gnome.org](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/) or unzip release to: ~/.local/share/gnome-shell/extensions.
 
-### Credits
-The core functionality was taken from: [unite-shell (hardpixel)](https://github.com/hardpixel/unite-shell) <- [TopIcons Plus (phocean)](https://github.com/phocean/TopIcons-plus) <- [TopTray (mjnaderi)
-](https://github.com/mjnaderi/TopTray)
+## Credits
 
-### Donations
-[paypal.me/martinpl](https://www.paypal.me/martinpl)
-Bitcoin: bc1qn6c4rt753quvfep25mhurqk3e25r3s9ql45c69
+Evolved from: [unite-shell (hardpixel)](https://github.com/hardpixel/unite-shell) ([TopIcons Plus (phocean)](https://github.com/phocean/TopIcons-plus), TopIcons (Adel Gadllah), [TopTray (mjnaderi)](https://github.com/mjnaderi/TopTray))
+
+## Donations
+
+[https://revolut.me/martinpl](https://revolut.me/martinpl)
