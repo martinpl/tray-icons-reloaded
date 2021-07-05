@@ -75,11 +75,11 @@ function getTrayApp(icon) {
 
 function openApplication(trayApp, icon, event) {
 	const isFlatpak = trayApp.app_info.has_key("X-Flatpak");
-	if (Me.metadata["broken-left-click"].includes(icon.wm_class) && !isFlatpak) {
-		trayApp.open_new_window(0);
-	} else {
-		return icon.click(event);
+	if (!isUsingQt(getPid(icon)) || !isFlatpak) {
+		return trayApp.open_new_window(0);
 	}
+
+	return icon.click(event);
 }
 
 function minimizeWindows(windows, icon, event) {
