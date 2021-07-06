@@ -75,11 +75,12 @@ function getTrayApp(icon) {
 
 function openApplication(trayApp, icon, event) {
 	const isFlatpak = trayApp.app_info.has_key("X-Flatpak");
-	if (!isUsingQt(getPid(icon)) || !isFlatpak) {
-		return trayApp.open_new_window(0);
+	const onBlacklist = Me.metadata["open-blacklist"].includes(icon.wm_class); // Caprine
+	if (isUsingQt(getPid(icon)) || isFlatpak || onBlacklist) {
+		return icon.click(event);
 	}
 
-	return icon.click(event);
+	return trayApp.open_new_window(0);
 }
 
 function minimizeWindows(windows, icon, event) {
