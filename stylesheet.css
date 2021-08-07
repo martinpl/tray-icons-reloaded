@@ -3,18 +3,14 @@
 	-minimum-hpadding: 0;
 }
 
-.TrayIndicator--overflow  {
-	color: inherit;	/* workaround: force repaint paddings */
-}
-
 .TrayIndicatorPopup StButton {
 	padding: 8px;
 	border-radius: 6px;
 	transition-property: background-color;
-	transition-duration: .1s;
+	transition-duration: 0.1s;
 	transition-timing-function: linear;
 }
 
 .TrayIndicatorPopup StButton:hover {
-	background-color: rgba(255, 255, 255, .1);
+	background-color: rgba(255, 255, 255, 0.1);
 }
