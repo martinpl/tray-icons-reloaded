@@ -1,8 +1,3 @@
-.TrayIndicator--on-view {
-	-natural-hpadding: 0;
-	-minimum-hpadding: 0;
-}
-
 .TrayIndicatorPopup StButton {
 	padding: 8px;
 	border-radius: 6px;

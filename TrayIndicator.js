@@ -16,7 +16,6 @@ var TrayIndicator = new imports.lang.Class({
 		this._icons = [];
 
 		this.parent(0.0, null, false);
-		this.style_class = "panel-button TrayIndicator TrayIndicator--on-view";
 		this._overflow = false;
 
 		this._indicators = new St.BoxLayout();
@@ -27,7 +26,6 @@ var TrayIndicator = new imports.lang.Class({
 			style_class: "system-status-icon",
 			reactive: true,
 			track_hover: true,
-			visible: false,
 		});
 		this._indicators.add_child(this._icon);
 
@@ -37,6 +35,7 @@ var TrayIndicator = new imports.lang.Class({
 		});
 		this.menu.addMenuItem(this._menuItem);
 		this.menu.actor.add_style_class_name("TrayIndicatorPopup");
+		this.hide();
 	},
 
 	get size() {
@@ -131,18 +130,18 @@ var TrayIndicator = new imports.lang.Class({
 			this._overflow = true;
 			this._icon.visible = true;
 			this.reactive = true;
-			this.style_class = "panel-button TrayIndicator TrayIndicator--overflow";
+			this.style_class = "panel-button TrayIndicator";
 		} else {
 			this._overflow = false;
 			this._icon.visible = false;
 			this.reactive = false;
-			this.style_class = "panel-button TrayIndicator TrayIndicator--on-view";
+			this.style_class = "TrayIndicator";
 		}
 
 		if (this._icons.length) {
-			this.visible = true;
+			this.show();
 		} else {
-			this.visible = false;
+			this.hide();
 		}
 
 		this._refreshIcons(this._overflow);
