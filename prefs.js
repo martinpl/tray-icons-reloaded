@@ -139,16 +139,20 @@ const settingsWidgets = new GObject.Class({
 		widget = new Gtk.Entry({hexpand: true, halign: Gtk.Align.START});
 		this._settings.bind('blacklisted-apps', widget, 'text', Gio.SettingsBindFlags.DEFAULT);
 		this.attach(label, 0, 10, 3, 1);
-		this.attach(widget, 0, 11, 3, 1);
+		this.attach(widget, 0, 11, 1, 1);
+		
+		widget = new Gtk.Button({ label: 'Apply', hexpand: true, halign: Gtk.Align.CENTER });
+		this.attach(widget, 1, 11, 1, 1);
+
 
 		this._footer();
 	},
 
 	_footer() {
 		label = new Gtk.LinkButton({ label: 'GitHub', uri: 'https://github.com/MartinPL/Tray-Icons-Reloaded', hexpand: true, halign: Gtk.Align.START });
-		this.attach(label, 1, 12, 1, 1);
+		this.attach(label, 1, 999, 1, 1);
 		label = new Gtk.LinkButton({ label: 'Donate', uri: 'https://revolut.me/martinpl', hexpand: true, halign: Gtk.Align.END });
-		this.attach(label, 1, 12, 1, 1);
+		this.attach(label, 1, 999, 1, 1);
 	}
 
 });
