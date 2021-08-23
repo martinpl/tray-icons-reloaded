@@ -48,6 +48,39 @@ var middleClick = function (icon, event) {
 	}
 };
 
+
+/**
+ * Returns true if the icon is on the blacklist
+ * 
+ * @param {icon} icon tray app icon
+ * @returns {bool} True if the icon is blacklisted, false otherwise.
+ */
+var isBlacklisted = function(icon){
+	let trayApp = getTrayApp(icon);
+	if(trayApp == false){
+		return false;
+	}
+
+	// get comma seperated list of apps from settings
+	let blackListedAppsString = getSettings().get_string("blacklisted-apps");
+	if(blackListedAppsString == null || blackListedAppsString == ""){
+		return false;
+	}
+
+	let namesArray = blackListedAppsString.split(',');
+	let trayAppName = trayApp.get_name().trim().toLowerCase();
+	
+	for(let blackListed of namesArray){
+		blackListed = blapp.trim().toLowerCase();
+
+		if(blackListed == trayAppName){
+			return true;
+		}
+	}
+
+	return false;
+}
+
 function getTrayApp(icon) {
 	if (isWine(icon)) {
 		const wineApps = AppSystem.get_default()

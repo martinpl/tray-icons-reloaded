@@ -55,6 +55,9 @@ var TrayIndicator = new imports.lang.Class({
 	},
 
 	addIcon(icon) {
+		if(AppManager.isBlacklisted(icon) == true)
+			return;
+
 		const button = new St.Button({
 			child: icon,
 			button_mask: St.ButtonMask.ONE | St.ButtonMask.TWO | St.ButtonMask.THREE,

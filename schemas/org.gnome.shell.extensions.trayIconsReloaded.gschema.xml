@@ -60,5 +60,10 @@
 			<default>true</default>
 			<summary>Wine behavior</summary>
 		</key>
+		<key name="blacklisted-apps" type="s">
+			<default>""</default>
+			<summary>Comma seperated list of app names that sould not be displayed in the tray</summary>
+		</key>
+
 	</schema>
 </schemalist>
