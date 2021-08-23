@@ -52,15 +52,10 @@ var middleClick = function (icon, event) {
 /**
  * Returns true if the icon is on the blacklist
  * 
- * @param {icon} icon tray app icon
- * @returns {bool} True if the icon is blacklisted, false otherwise.
+ * @param 	{TrayIcon}	icon	tray app icon
+ * @returns {bool}				True if the icon is blacklisted, false otherwise.
  */
 var isBlacklisted = function(icon){
-	let trayApp = getTrayApp(icon);
-	if(trayApp == false){
-		return false;
-	}
-
 	// get comma seperated list of apps from settings
 	let blackListedAppsString = getSettings().get_string("blacklisted-apps");
 	if(blackListedAppsString == null || blackListedAppsString == ""){
@@ -68,12 +63,11 @@ var isBlacklisted = function(icon){
 	}
 
 	let namesArray = blackListedAppsString.split(',');
-	let trayAppName = trayApp.get_name().trim().toLowerCase();
 	
 	for(let blackListed of namesArray){
-		blackListed = blapp.trim().toLowerCase();
+		blackListed = blackListed.trim().toLowerCase();
 
-		if(blackListed == trayAppName){
+		if(blackListed == icon.title.toLowerCase()){
 			return true;
 		}
 	}
