@@ -29,6 +29,7 @@ If you are on Wayland and app don't run through XWayland you can force it via co
 - fast app killing (SHIFT + mouse middle click)
 - window are invoked to current workspace (by default)
 - work with Wine (left and middle click affect all wine apps)
+- blacklist apps to not show up in your tray [How To](Manual/BlacklistManual.md)
 
 ## Installation
 
