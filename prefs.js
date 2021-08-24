@@ -135,16 +135,17 @@ const settingsWidgets = new GObject.Class({
 		this.attach(label, 0, 9, 2, 1);
 		this.attach(widget, 2, 9, 1, 1);
 
-		label = new Gtk.Label({ label: 'Comma seperated list of apps that sould not be displayed in the tray', hexpand: true, halign: Gtk.Align.START });
-		widget = new Gtk.Entry({hexpand: true, halign: Gtk.Align.START});
-		this._settings.bind('blacklisted-apps', widget, 'text', Gio.SettingsBindFlags.DEFAULT);
-		this.attach(label, 0, 10, 3, 1);
-		this.attach(widget, 0, 11, 1, 1);
-		
-		widget = new Gtk.Button({ label: 'Apply', hexpand: true, halign: Gtk.Align.CENTER });
-		this.attach(widget, 1, 11, 1, 1);
+		let expander = new Gtk.Expander({ label: 'Blacklist'});
+		let box = new Gtk.Box();
+		let text = new Gtk.Label({ label: 'Blacklisted Apps: '});
+		text.set_tooltip_text('Comma seperated list of apps that sould not be displayed in the tray.')
+		let entry = new Gtk.Entry({hexpand: true});
+		this._settings.bind('blacklisted-apps', entry, 'text', Gio.SettingsBindFlags.DEFAULT);
+		box.append(text);
+		box.append(entry);
+		expander.set_child(box);
 
-
+		this.attach(expander, 0, 12, 3, 1);
 		this._footer();
 	},
 
