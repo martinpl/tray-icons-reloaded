@@ -1,8 +1,8 @@
 {
-	"shell-version": ["40"],
+	"shell-version": ["41"],
 	"uuid": "trayIconsReloaded@selfmade.pl",
 	"url": "https://github.com/MartinPL/Tray-Icons-Reloaded",
-	"version": "16",
+	"version": "17",
 	"name": "Tray Icons: Reloaded",
 	"description": "Tray Icons Reloaded is a GNOME Shell extension which bring back Tray Icons to top panel, with additional features.",
 	"settings-schema": "org.gnome.shell.extensions.trayIconsReloaded",
