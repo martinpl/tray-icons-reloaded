@@ -1,21 +1,14 @@
-const Clutter = imports.gi.Clutter;
-const GObject = imports.gi.GObject;
-const St = imports.gi.St;
-const PanelMenu = imports.ui.panelMenu;
-const PopupMenu = imports.ui.popupMenu;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const AppManager = Me.imports.AppManager;
-const GLib = imports.gi.GLib;
-const getSettings = imports.misc.extensionUtils.getSettings;
+const { GObject, Clutter, St, GLib } = imports.gi;
+const { panelMenu, popupMenu } = imports.ui;
+const { getCurrentExtension, getSettings } = imports.misc.extensionUtils;
+const AppManager = getCurrentExtension().imports.AppManager;
 
-var TrayIndicator = new imports.lang.Class({
-	Name: "TrayIndicator",
-	Extends: PanelMenu.Button,
-
+var TrayIndicator = GObject.registerClass(
+class TrayIndicator extends panelMenu.Button { 
 	_init() {
 		this._icons = [];
 
-		this.parent(0.0, null, false);
+		super._init(0.0, null, false);
 		this._overflow = false;
 
 		this._indicators = new St.BoxLayout();
@@ -29,19 +22,19 @@ var TrayIndicator = new imports.lang.Class({
 		});
 		this._indicators.add_child(this._icon);
 
-		this._menuItem = new PopupMenu.PopupBaseMenuItem({
+		this._menuItem = new popupMenu.PopupBaseMenuItem({
 			reactive: false,
 			can_focus: true,
 		});
 		this.menu.addMenuItem(this._menuItem);
 		this.menu.actor.add_style_class_name("TrayIndicatorPopup");
 		this.hide();
-	},
+	}
 
 	get size() {
 		const context = St.ThemeContext.get_for_stage(global.stage);
 		return this._size * context.scale_factor;
-	},
+	}
 
 	setSize(size, margin, padding) {
 		this._size = size;
@@ -52,7 +45,7 @@ var TrayIndicator = new imports.lang.Class({
 			icon.get_parent().style = this._getButtonStyle();
 			icon.set_size(this._size, this._size);
 		});
-	},
+	}
 
 	addIcon(icon) {
 		const button = new St.Button({
@@ -110,7 +103,7 @@ var TrayIndicator = new imports.lang.Class({
 		}
 
 		this.checkOverflow();
-	},
+	}
 
 	removeIcon(icon, ignoreCheckOverflow) {
 		const index = this._icons.indexOf(icon);
@@ -123,7 +116,7 @@ var TrayIndicator = new imports.lang.Class({
 		if (!ignoreCheckOverflow) {
 			this.checkOverflow();
 		}
-	},
+	}
 
 	checkOverflow() {
 		if (this._icons.length >= getSettings().get_int("icons-limit")) {
@@ -145,7 +138,7 @@ var TrayIndicator = new imports.lang.Class({
 		}
 
 		this._refreshIcons(this._overflow);
-	},
+	}
 
 	_refreshIcons(overflow) {
 		this._icons.forEach((icon) => {
@@ -154,7 +147,7 @@ var TrayIndicator = new imports.lang.Class({
 				this.addIcon(icon);
 			}
 		});
-	},
+	}
 
 	_getButtonStyle() {
 		let style;
@@ -162,7 +155,7 @@ var TrayIndicator = new imports.lang.Class({
 			style = `margin: ${this._margin.vertical}px ${this._margin.horizontal}px; padding: ${this._padding.vertical}px ${this._padding.horizontal}px`;
 		}
 		return `width: ${this.size}px; height: ${this.size}px;${style}`;
-	},
+	}
 
 	_addEffectIcon(icon) {
 		let brightnessContrast = new Clutter.BrightnessContrastEffect({});
@@ -179,7 +172,7 @@ var TrayIndicator = new imports.lang.Class({
 				factor: getSettings().get_int("icon-saturation") / 100,
 			})
 		);
-	},
+	}
 
 	setEffect(contrast, saturation, brightness) {
 		this._icons.forEach((icon) => {
@@ -190,5 +183,5 @@ var TrayIndicator = new imports.lang.Class({
 			let desaturate = icon.get_effect("desaturate");
 			desaturate.set_factor(saturation / 100);
 		});
-	},
+	}
 });

@@ -1,13 +1,11 @@
-const Main				= imports.ui.main;
-const Shell				= imports.gi.Shell;
-const Me				= imports.misc.extensionUtils.getCurrentExtension();
-const TrayIndicator		= Me.imports.TrayIndicator;
-const getSettings		= imports.misc.extensionUtils.getSettings;
-const System			= imports.system;
+const { GObject, Shell } = imports.gi;
+const { getCurrentExtension, getSettings } = imports.misc.extensionUtils;
+const System = imports.system;
+const Main = imports.ui.main;
+const TrayIndicator = getCurrentExtension().imports.TrayIndicator;
 
-var TrayIconsClass = new imports.lang.Class({
-	Name: 'Tray Icons: Reloaded',
-
+var TrayIconsClass = GObject.registerClass(
+class TrayIconsClass extends GObject.Object { 
 	_init() {
 		this.tray       = new Shell.TrayManager();
 		this.indicators = new TrayIndicator.TrayIndicator();
@@ -16,10 +14,10 @@ var TrayIconsClass = new imports.lang.Class({
 		this.tray.connect('tray-icon-removed', this._onIconRemoved.bind(this));
 
 		this.tray.manage_screen(Main.panel);
-	},
+	}
 
-	_onIconAdded(trayManager, icon)		 {		this.indicators.addIcon(icon); 		},
-	_onIconRemoved(trayManager, icon)	 {		this.indicators.removeIcon(icon);	},
+	_onIconAdded(trayManager, icon)		 {		this.indicators.addIcon(icon); 		}
+	_onIconRemoved(trayManager, icon)	 {		this.indicators.removeIcon(icon);	}
 
 	_destroy() {
 		this.tray = null;
