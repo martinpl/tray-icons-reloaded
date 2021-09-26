@@ -45,6 +45,8 @@ var middleClick = function (icon, event) {
 			});
 			trayApp.request_quit();
 		}
+	} else {
+		icon.click(event);
 	}
 };
 
