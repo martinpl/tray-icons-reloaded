@@ -2,7 +2,6 @@ const GObject		= imports.gi.GObject;
 const Gtk			= imports.gi.Gtk;
 const Gio			= imports.gi.Gio;
 const getSettings	= imports.misc.extensionUtils.getSettings;
-const Me			= imports.misc.extensionUtils.getCurrentExtension();
 
 const settingsWidgets = new GObject.Class({
 	Name: 'TrayIcons.Settings',
@@ -144,8 +143,8 @@ const settingsWidgets = new GObject.Class({
 		box.append(text);
 		box.append(entry);
 		expander.set_child(box);
-
 		this.attach(expander, 0, 12, 3, 1);
+		
 		this._footer();
 	},
 

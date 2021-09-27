@@ -64,6 +64,5 @@
 			<default>""</default>
 			<summary>Comma seperated list of app names that sould not be displayed in the tray</summary>
 		</key>
-
 	</schema>
 </schemalist>
