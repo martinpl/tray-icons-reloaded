@@ -5,8 +5,10 @@ Tray Icons Reloaded is a [GNOME Shell](https://www.gnome.org/) extension which b
 
 ## Compatibility
 
-It's only works with [Xorg](https://wiki.archlinux.org/index.php/GDM#Use_Xorg_backend) and XWayland.
-If you have some trouble with compatibility you can try [snixembed](https://git.sr.ht/~steef/snixembed) it also adds visual native menus.
+- It's only works with [Xorg](https://wiki.archlinux.org/index.php/GDM#Use_Xorg_backend) and XWayland.
+- Ubuntu, Pop!_OS and other Ubuntu based distros ships with Appindicator extension which is incompatibility.
+- If you have some trouble with compatibility you can try [snixembed](https://git.sr.ht/~steef/snixembed) it also adds visual native menus.
+- Master always targeting current GNOME stable release.
 
 ## Wayland
 
@@ -38,6 +40,6 @@ Grab it from [extensions.gnome.org](https://extensions.gnome.org/extension/2890/
 
 Evolved from: [unite-shell (hardpixel)](https://github.com/hardpixel/unite-shell) ([TopIcons Plus (phocean)](https://github.com/phocean/TopIcons-plus), TopIcons (Adel Gadllah), [TopTray (mjnaderi)](https://github.com/mjnaderi/TopTray))
 
-## Donations
+## Buy me a beer 🍺
 
 [https://revolut.me/martinpl](https://revolut.me/martinpl)
