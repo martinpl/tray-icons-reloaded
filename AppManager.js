@@ -48,27 +48,12 @@ var middleClick = function (icon, event) {
 	}
 };
 
-/**
- * Returns true if the icon is on the blacklist
- *
- * @param 	{TrayIcon}	icon	tray app icon
- * @returns {bool}				True if the icon is blacklisted, false otherwise.
- */
-var isBlacklisted = function (icon) {
-	// get comma seperated list of apps from settings
-	let blackListedAppsString = getSettings().get_string("blacklisted-apps");
-	if (!blackListedAppsString) return false;
+var getAppSetting = function (icon, setting) {
+	const iconApp = getTrayApp(icon);
+	const appsSettings = JSON.parse(getSettings().get_string("applications"));
+	const appSettings = appsSettings.find((app) => app.id == iconApp.get_id());
 
-	let namesArray = blackListedAppsString.split(",");
-	for (let blackListed of namesArray) {
-		blackListed = blackListed.trim().toLowerCase();
-
-		if (blackListed == icon.title.toLowerCase()) {
-			return true;
-		}
-	}
-
-	return false;
+	return appSettings?.[setting];
 };
 
 function getTrayApp(icon) {

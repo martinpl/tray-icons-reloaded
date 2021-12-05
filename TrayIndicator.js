@@ -55,7 +55,8 @@ var TrayIndicator = new imports.lang.Class({
 	},
 
 	addIcon(icon) {
-		if (AppManager.isBlacklisted(icon)) return;
+		const isHidden = AppManager.getAppSetting(icon, "hidden");
+		if (isHidden) return;
 
 		const button = new St.Button({
 			child: icon,
