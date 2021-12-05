@@ -48,6 +48,9 @@ class TrayIndicator extends panelMenu.Button {
 	}
 
 	addIcon(icon) {
+		const isHidden = AppManager.getAppSetting(icon, "hidden");
+		if (isHidden) return;
+
 		const button = new St.Button({
 			child: icon,
 			button_mask: St.ButtonMask.ONE | St.ButtonMask.TWO | St.ButtonMask.THREE,

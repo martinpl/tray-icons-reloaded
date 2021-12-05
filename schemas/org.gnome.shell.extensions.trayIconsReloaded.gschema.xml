@@ -60,5 +60,9 @@
 			<default>true</default>
 			<summary>Wine behavior</summary>
 		</key>
+		<key name="applications" type="s">
+			<default>"[]"</default>
+			<summary>Applications list</summary>
+		</key>
 	</schema>
 </schemalist>
