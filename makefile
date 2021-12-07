@@ -8,6 +8,8 @@ _build:
 	mkdir -p _build/schemas
 	cp schemas/*.xml _build/schemas/
 	cp schemas/gschemas.compiled _build/schemas/
+	mkdir -p _build/preferences
+	cp preferences/* _build/preferences/
 
 
 zip: _build
