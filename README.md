@@ -6,7 +6,7 @@ Tray Icons Reloaded is a [GNOME Shell](https://www.gnome.org/) extension which b
 ## Compatibility
 
 - It's only works with [Xorg](https://wiki.archlinux.org/index.php/GDM#Use_Xorg_backend) and XWayland.
-- Ubuntu, Pop!_OS and other Ubuntu based distros ships with Appindicator extension which is incompatibility.
+- Appindicator extension is incompatible (some distributions ship it by default ex. Ubuntu based).
 - If you have some trouble with compatibility you can try [snixembed](https://git.sr.ht/~steef/snixembed) it also adds visual native menus.
 - Master always targeting current GNOME stable release.
 
@@ -27,11 +27,11 @@ If you are on Wayland and app don't run through XWayland you can force it via co
 
 <img src=".github/settings.png">
 
-- fix left click invoking menu in some apps ex. Steam (not on flatpak)
+- fix left click invoking menu in some apps ex. Steam
 - fast app killing (SHIFT + mouse middle click)
 - window are invoked to current workspace (by default)
 - work with Wine (left and middle click affect all wine apps)
-- blacklist apps to not show up in your tray [How To](Manual/BlacklistManual.md)
+- hide selected apps in your tray
 
 ## Installation
 
