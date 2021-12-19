@@ -6,7 +6,7 @@ Tray Icons Reloaded is a [GNOME Shell](https://www.gnome.org/) extension which b
 ## Compatibility
 
 - It's only works with [Xorg](https://wiki.archlinux.org/index.php/GDM#Use_Xorg_backend) and XWayland.
-- Appindicator extension is incompatible (some distributions ship it by default ex. Ubuntu based).
+- Appindicator and similar extensions are not compatible, disable it (some distributions ship it by default ex. Ubuntu based).
 - If you have some trouble with compatibility you can try [snixembed](https://git.sr.ht/~steef/snixembed) it also adds visual native menus.
 - Master always targeting current GNOME stable release.
 
