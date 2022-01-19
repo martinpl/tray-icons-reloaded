@@ -12,7 +12,7 @@ Tray Icons Reloaded is a [GNOME Shell](https://www.gnome.org/) extension which b
 
 ## Wayland
 
-If you are on Wayland and app don't run through XWayland you can force it via command:
+If you are on Wayland and app won't run through XWayland you can force it via command:
 `GDK_BACKEND=x11 app_name`
 
 ## Features
