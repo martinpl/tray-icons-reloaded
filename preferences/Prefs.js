@@ -36,7 +36,7 @@ var Prefs = GObject.registerClass(
 	class Prefs extends Gtk.Box {
 		_init(params = {}) {
 			super._init(params);
-
+			this._settings = getSettings();
 			this._bindSettings(schemaNames);
 
 			this.connect("realize", () => {
@@ -56,8 +56,6 @@ var Prefs = GObject.registerClass(
 				Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
 			);
 
-			this._settings = getSettings();
-
 			this._changeId = this._settings.connect(
 				"changed::applications",
 				this._syncAppsRows.bind(this)
@@ -67,7 +65,7 @@ var Prefs = GObject.registerClass(
 		}
 
 		showAppChooser() {
-			const dialog = new AppChooser(this.get_root());
+			const dialog = new AppChooser(this.get_root(), this._settings);
 			dialog.show();
 		}
 
@@ -81,7 +79,7 @@ var Prefs = GObject.registerClass(
 
 			newApps.forEach((appInfo, index) => {
 				if (!oldApps.some((row) => row.appId == appInfo.id)) {
-					const appRow = new AppRow(appInfo);
+					const appRow = new AppRow(appInfo, this._settings);
 					this._appList.insert(appRow, index);
 
 					if (this._notFirstSync) {
@@ -117,7 +115,12 @@ var Prefs = GObject.registerClass(
 						valueType = "value";
 				}
 
-				getSettings().bind(name, obj, valueType, Gio.SettingsBindFlags.DEFAULT);
+				this._settings.bind(
+					name,
+					obj,
+					valueType,
+					Gio.SettingsBindFlags.DEFAULT
+				);
 			});
 		}
 	}

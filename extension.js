@@ -6,9 +6,9 @@ const TrayIndicator = getCurrentExtension().imports.TrayIndicator;
 
 var TrayIconsClass = GObject.registerClass(
 class TrayIconsClass extends GObject.Object { 
-	_init() {
+	_init(settings) {
 		this.tray       = new Shell.TrayManager();
-		this.indicators = new TrayIndicator.TrayIndicator();
+		this.indicators = new TrayIndicator.TrayIndicator(settings);
 
 		this.tray.connect('tray-icon-added', this._onIconAdded.bind(this));
 		this.tray.connect('tray-icon-removed', this._onIconRemoved.bind(this));
@@ -70,8 +70,8 @@ class Extension {
 	}
 
 	enable() {
-		TrayIcons = new TrayIconsClass();
 		this._settings = getSettings();
+		TrayIcons = new TrayIconsClass(this._settings);
 		this._setTrayMargin();
 		this._setIconSize();
 		this._onChange();

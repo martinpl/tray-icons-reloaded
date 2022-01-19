@@ -10,10 +10,10 @@ var AppRow = GObject.registerClass(
 		InternalChildren: ["icon", "label", "revealButton", "revealer", "hidden"],
 	},
 	class AppRow extends Gtk.ListBoxRow {
-		_init(app) {
+		_init(app, settings) {
 			super._init();
 			this._appInfo = Gio.DesktopAppInfo.new(app.id);
-			this._settings = getSettings();
+			this._settings = settings;
 			this._icon.gicon = this._appInfo.get_icon();
 			this._label.label = this._appInfo.get_display_name();
 			this._hidden.set_active(app.hidden);

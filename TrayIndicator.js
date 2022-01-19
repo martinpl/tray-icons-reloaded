@@ -5,10 +5,11 @@ const AppManager = getCurrentExtension().imports.AppManager;
 
 var TrayIndicator = GObject.registerClass(
 	class TrayIndicator extends panelMenu.Button {
-		_init() {
+		_init(settings) {
 			this._icons = [];
 
 			super._init(0.0, null, false);
+			this._settings = settings;
 			this._overflow = false;
 
 			this._indicators = new St.BoxLayout();
@@ -123,7 +124,7 @@ var TrayIndicator = GObject.registerClass(
 		}
 
 		checkOverflow() {
-			if (this._icons.length >= getSettings().get_int("icons-limit")) {
+			if (this._icons.length >= this._settings.get_int("icons-limit")) {
 				this._overflow = true;
 				this._icon.visible = true;
 				this.reactive = true;
@@ -164,16 +165,16 @@ var TrayIndicator = GObject.registerClass(
 		_addEffectIcon(icon) {
 			let brightnessContrast = new Clutter.BrightnessContrastEffect({});
 			brightnessContrast.set_contrast(
-				getSettings().get_int("icon-contrast") / 100
+				this._settings.get_int("icon-contrast") / 100
 			);
 			brightnessContrast.set_brightness(
-				getSettings().get_int("icon-brightness") / 100
+				this._settings.get_int("icon-brightness") / 100
 			);
 			icon.add_effect_with_name("brightnessContrast", brightnessContrast);
 			icon.add_effect_with_name(
 				"desaturate",
 				new Clutter.DesaturateEffect({
-					factor: getSettings().get_int("icon-saturation") / 100,
+					factor: this._settings.get_int("icon-saturation") / 100,
 				})
 			);
 		}
