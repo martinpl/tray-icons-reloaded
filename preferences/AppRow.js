@@ -1,6 +1,5 @@
 const { GObject, Gtk, Gio } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
-const getSettings = ExtensionUtils.getSettings;
 const Me = ExtensionUtils.getCurrentExtension();
 
 var AppRow = GObject.registerClass(

@@ -1,6 +1,6 @@
 const { GObject, Clutter, St, GLib } = imports.gi;
 const { panelMenu, popupMenu } = imports.ui;
-const { getCurrentExtension, getSettings } = imports.misc.extensionUtils;
+const { getCurrentExtension } = imports.misc.extensionUtils;
 const AppManager = getCurrentExtension().imports.AppManager;
 
 var TrayIndicator = GObject.registerClass(
@@ -10,6 +10,7 @@ var TrayIndicator = GObject.registerClass(
 
 			super._init(0.0, null, false);
 			this._settings = settings;
+			this._appManager = new AppManager.AppManager(this._settings);
 			this._overflow = false;
 
 			this._indicators = new St.BoxLayout();
@@ -49,7 +50,7 @@ var TrayIndicator = GObject.registerClass(
 		}
 
 		addIcon(icon) {
-			const isHidden = AppManager.getAppSetting(icon, "hidden");
+			const isHidden = this._appManager.getAppSetting(icon, "hidden");
 			if (isHidden) return;
 
 			const button = new St.Button({
@@ -80,16 +81,16 @@ var TrayIndicator = GObject.registerClass(
 			button.connect("button-release-event", (actor, event) => {
 				switch (event.get_button()) {
 					case 1:
-						AppManager.leftClick(icon, event);
+						this._appManager.leftClick(icon, event);
 						break;
 					case 2:
-						AppManager.middleClick(icon, event);
+						this._appManager.middleClick(icon, event);
 						break;
 					case 3:
 						icon.click(event);
 						break;
 				}
-				if (AppManager.isWine(icon)) {
+				if (this._appManager.isWine(icon)) {
 					GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1, () => {
 						this.menu.close();
 						return GLib.SOURCE_REMOVE;
