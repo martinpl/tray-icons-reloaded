@@ -73,7 +73,7 @@ function getTrayApp(icon) {
 		var i = 1;
 		for (let lookup of searchedApps[0]) {
 			let app = AppSystem.get_default().lookup_app(lookup);
-			if (app.get_windows() != "" || i == searchedApps[0].length) {
+			if (app && (app.get_windows() != "" || i == searchedApps[0].length)) {
 				return app;
 			}
 			i++;
