@@ -17,3 +17,6 @@ If applicable, add screenshots to help explain your problem.
  - Distro: [e.g. Arch Linux]
  - GNOME Shell: [e.g. 41.3]
  - Extension version: [e.g. 20]
+ - Display server: [eg. X11] 
+
+ I read the compatibility note: [✓]
