@@ -27,30 +27,28 @@ class TrayIconsClass extends GObject.Object {
 	}
 });
 
-let TrayIcons;
-
 class Extension {
 	_setIconSize() {
 		const margin = { vertical: this._settings.get_int('icon-margin-vertical'), horizontal: this._settings.get_int('icon-margin-horizontal') }
 		const padding = { vertical: this._settings.get_int('icon-padding-vertical'), horizontal: this._settings.get_int('icon-padding-horizontal') }
-		TrayIcons.indicators.setSize(this._settings.get_int('icon-size'), margin, padding);
+		this.TrayIcons.indicators.setSize(this._settings.get_int('icon-size'), margin, padding);
 	}
 
 	_setTrayMargin() {
-		TrayIcons.indicators.set_style('margin-left: ' + this._settings.get_int('tray-margin-left') + 'px; margin-right: ' + this._settings.get_int('tray-margin-right') + 'px');
+		this.TrayIcons.indicators.set_style('margin-left: ' + this._settings.get_int('tray-margin-left') + 'px; margin-right: ' + this._settings.get_int('tray-margin-right') + 'px');
 	}
 
 	_setTrayArea() {
 		Main.panel.statusArea['TrayIconsReloaded'] = null;
-		Main.panel.addToStatusArea('TrayIconsReloaded', TrayIcons.indicators, this._settings.get_int('position-weight'), this._settings.get_string('tray-position'));
+		Main.panel.addToStatusArea('TrayIconsReloaded', this.TrayIcons.indicators, this._settings.get_int('position-weight'), this._settings.get_string('tray-position'));
 	}
 
 	_setIconsLimit() {
-		TrayIcons.indicators.checkOverflow();
+		this.TrayIcons.indicators.checkOverflow();
 	}
 
 	_setIconEffect() {
-		TrayIcons.indicators.setEffect(this._settings.get_int('icon-contrast'), this._settings.get_int('icon-saturation'), this._settings.get_int('icon-brightness'));
+		this.TrayIcons.indicators.setEffect(this._settings.get_int('icon-contrast'), this._settings.get_int('icon-saturation'), this._settings.get_int('icon-brightness'));
 	}
 
 	_onChange() {
@@ -71,7 +69,7 @@ class Extension {
 
 	enable() {
 		this._settings = getSettings();
-		TrayIcons = new TrayIconsClass(this._settings);
+		this.TrayIcons = new TrayIconsClass(this._settings);
 		this._setTrayMargin();
 		this._setIconSize();
 		this._onChange();
@@ -87,7 +85,7 @@ class Extension {
 	}
 
 	disable() {
-		TrayIcons._destroy();
+		this.TrayIcons._destroy();
 		this._settings.run_dispose();
 	}
 }
