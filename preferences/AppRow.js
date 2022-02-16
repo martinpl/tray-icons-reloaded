@@ -11,15 +11,21 @@ var AppRow = GObject.registerClass(
 	class AppRow extends Gtk.ListBoxRow {
 		_init(app, settings) {
 			super._init();
-			this._appInfo = Gio.DesktopAppInfo.new(app.id);
 			this._settings = settings;
-			this._icon.gicon = this._appInfo.get_icon();
-			this._label.label = this._appInfo.get_display_name();
+			this.appId = app.id;
+
+			this._appInfo = Gio.DesktopAppInfo.new(app.id);
+			if (this._appInfo) {
+				this._icon.gicon = this._appInfo.get_icon();
+				this._label.label = this._appInfo.get_display_name();
+			} else {
+				this._label.label = app.id;
+			}
+
 			this._hidden.set_active(app.hidden);
 			this._hidden.connect("state-set", () => {
 				this._updateApp();
 			});
-			this.appId = this._appInfo.get_id();
 		}
 
 		toggleSettingsVisibility() {
