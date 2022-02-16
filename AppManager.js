@@ -30,7 +30,7 @@ var AppManager = GObject.registerClass(
 			icon.click(event);
 
 			// On Windows double-click restore app
-			if (this._isWine(icon)) {
+			if (this.isWine(icon)) {
 				icon.click(event);
 			}
 		}
@@ -68,8 +68,17 @@ var AppManager = GObject.registerClass(
 			return appSettings?.[setting];
 		}
 
+		isWine(icon) {
+			if (
+				(icon.wm_class == "Wine" || icon.wm_class == "explorer.exe") &&
+				this._settings.get_boolean("wine-behavior")
+			) {
+				return true;
+			}
+		}
+
 		_getTrayApp(icon) {
-			if (this._isWine(icon)) {
+			if (this.isWine(icon)) {
 				const wineApps = AppSystem.get_default()
 					.get_running()
 					.filter((app) => {
@@ -123,15 +132,6 @@ var AppManager = GObject.registerClass(
 				trayApp.activate_window(window, event.get_time());
 				window.unminimize();
 			});
-		}
-
-		_isWine(icon) {
-			if (
-				(icon.wm_class == "Wine" || icon.wm_class == "explorer.exe") &&
-				this._settings.get_boolean("wine-behavior")
-			) {
-				return true;
-			}
 		}
 
 		_isUsingQt(pid) {
