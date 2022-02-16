@@ -87,6 +87,7 @@ class Extension {
 	disable() {
 		this.TrayIcons._destroy();
 		this._settings.run_dispose();
+		this._settings = null;
 	}
 }
 
