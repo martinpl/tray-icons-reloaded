@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-	<object class="GtkHeaderBar" id="headerBar">
-		<property name="title-widget">
-			<object class="GtkStackSwitcher">
-				<property name="stack">stack</property>
-			</object>
-		</property>
+	<object id="headerBar" class="GtkStackSwitcher">
+		<property name="stack">stack</property>
 	</object>
 	<template class="Prefs" parent="GtkBox">
 		<property name="orientation">vertical</property>

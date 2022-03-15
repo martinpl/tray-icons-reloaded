@@ -4,6 +4,7 @@ const getSettings = ExtensionUtils.getSettings;
 const Me = ExtensionUtils.getCurrentExtension();
 const AppRow = Me.imports.preferences.AppRow.AppRow;
 const AppChooser = Me.imports.preferences.AppChooser.AppChooser;
+const Adw = imports.gi.Adw;
 
 const schemaNames = [
 	"tray-position",
@@ -41,7 +42,11 @@ var Prefs = GObject.registerClass(
 
 			this.connect("realize", () => {
 				const window = this.get_root();
-				window.set_titlebar(this._headerBar);
+				const windowHeaderBar = this._findWidgetByType(
+					window.get_content(),
+					Adw.HeaderBar
+				);
+				windowHeaderBar.set_title_widget(this._headerBar);
 			});
 
 			let provider = new Gtk.CssProvider();
@@ -122,6 +127,20 @@ var Prefs = GObject.registerClass(
 					Gio.SettingsBindFlags.DEFAULT
 				);
 			});
+		}
+
+		// This traverses the widget tree below the given parent recursively and returns the
+		// first widget of the given type.
+		// @Schneegans
+		_findWidgetByType(parent, type) {
+			for (const child of [...parent]) {
+				if (child instanceof type) return child;
+
+				const match = this._findWidgetByType(child, type);
+				if (match) return match;
+			}
+
+			return null;
 		}
 	}
 );
