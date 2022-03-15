@@ -41,7 +41,6 @@ var Prefs = GObject.registerClass(
 
 			this.connect("realize", () => {
 				const window = this.get_root();
-				window.set_titlebar(this._headerBar);
 			});
 
 			let provider = new Gtk.CssProvider();
