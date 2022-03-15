@@ -61,7 +61,7 @@ class Extension {
 		this._settings.connect('changed::icon-margin-vertical', this._setIconSize.bind(this));
 		this._settings.connect('changed::icon-padding-vertical', this._setIconSize.bind(this));
 		this._settings.connect('changed::icon-padding-horizontal', this._setIconSize.bind(this));
-		this._settings.connect('changed::icons-limit',  this._setIconsLimit.bind());
+		this._settings.connect('changed::icons-limit',  this._setIconsLimit.bind(this));
 		this._settings.connect('changed::icon-saturation', this._setIconEffect.bind(this));
 		this._settings.connect('changed::icon-contrast', this._setIconEffect.bind(this));
 		this._settings.connect('changed::icon-brightness', this._setIconEffect.bind(this));
