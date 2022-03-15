@@ -58,14 +58,16 @@ var AppManager = GObject.registerClass(
 
 		getAppSetting(icon, setting) {
 			const iconApp = this._getTrayApp(icon);
-			const appsSettings = JSON.parse(
-				this._settings.get_string("applications")
-			);
-			const appSettings = appsSettings.find(
-				(app) => app.id == iconApp.get_id()
-			);
+			if (iconApp) {
+				const appsSettings = JSON.parse(
+					this._settings.get_string("applications")
+				);
+				const appSettings = appsSettings.find(
+					(app) => app.id == iconApp.get_id()
+				);
 
-			return appSettings?.[setting];
+				return appSettings?.[setting];
+			}
 		}
 
 		isWine(icon) {
