@@ -123,11 +123,13 @@ var TrayIndicator = GObject.registerClass(
 				this._icon.visible = true;
 				this.reactive = true;
 				this.style_class = "panel-button TrayIndicator";
+				this._menuItem.show();
 			} else {
 				this._overflow = false;
 				this._icon.visible = false;
 				this.reactive = false;
 				this.style_class = "TrayIndicator";
+				this._menuItem.hide();
 			}
 
 			if (this._icons.length) {
