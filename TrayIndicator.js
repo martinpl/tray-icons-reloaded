@@ -64,7 +64,7 @@ var TrayIndicator = GObject.registerClass(
 			icon.set_x_align(Clutter.ActorAlign.CENTER);
 			icon.set_y_align(Clutter.ActorAlign.CENTER);
 			icon.inOverflow = this._overflow;
-			GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () => {
+			icon.timeout = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () => {
 				icon.set_size(this.size, this.size);
 				icon.ease({
 					opacity: 255,
@@ -108,6 +108,11 @@ var TrayIndicator = GObject.registerClass(
 			const index = this._icons.indexOf(icon);
 			this._icons.splice(index, 1);
 
+			if (icon.timeout) {
+				GLib.Source.remove(icon.timeout);
+				icon.timeout = null;
+			}
+			
 			const actor = icon.get_parent();
 			actor.remove_actor(icon);
 			actor.destroy();
@@ -183,6 +188,12 @@ var TrayIndicator = GObject.registerClass(
 
 				let desaturate = icon.get_effect("desaturate");
 				desaturate.set_factor(saturation / 100);
+			});
+		}
+
+		_onDestroy() {
+			this._icons.forEach((icon) => {
+				this.removeIcon(icon, true);
 			});
 		}
 	}
