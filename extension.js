@@ -1,14 +1,15 @@
-const { GObject, Shell } = imports.gi;
-const { getCurrentExtension, getSettings } = imports.misc.extensionUtils;
-const System = imports.system;
-const Main = imports.ui.main;
-const TrayIndicator = getCurrentExtension().imports.TrayIndicator;
+import GObject from 'gi://GObject';
+import Shell from 'gi://Shell';
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
+import System from 'system';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as TrayIndicator from './TrayIndicator.js';
 
-var TrayIconsClass = GObject.registerClass(
+const TrayIconsClass = GObject.registerClass(
 class TrayIconsClass extends GObject.Object { 
-	_init(settings) {
+	_init(extension) {
 		this.tray       = new Shell.TrayManager();
-		this.indicators = new TrayIndicator.TrayIndicator(settings);
+		this.indicators = new TrayIndicator.TrayIndicator(extension);
 
 		this.tray.connect('tray-icon-added', this._onIconAdded.bind(this));
 		this.tray.connect('tray-icon-removed', this._onIconRemoved.bind(this));
@@ -27,7 +28,7 @@ class TrayIconsClass extends GObject.Object {
 	}
 });
 
-class Extension {
+export default class TrayIconsReloaded extends Extension {
 	_setIconSize() {
 		const margin = { vertical: this._settings.get_int('icon-margin-vertical'), horizontal: this._settings.get_int('icon-margin-horizontal') }
 		const padding = { vertical: this._settings.get_int('icon-padding-vertical'), horizontal: this._settings.get_int('icon-padding-horizontal') }
@@ -68,8 +69,8 @@ class Extension {
 	}
 
 	enable() {
-		this._settings = getSettings();
-		this.TrayIcons = new TrayIconsClass(this._settings);
+		this._settings = this.getSettings();
+		this.TrayIcons = new TrayIconsClass(this);
 		this._setTrayMargin();
 		this._setIconSize();
 		this._onChange();
@@ -89,8 +90,4 @@ class Extension {
 		this._settings.run_dispose();
 		this._settings = null;
 	}
-}
-
-function init() {
-	return new Extension();
 }
