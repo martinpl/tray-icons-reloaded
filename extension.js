@@ -7,7 +7,8 @@ import * as TrayIndicator from './TrayIndicator.js';
 
 const TrayIconsClass = GObject.registerClass(
 class TrayIconsClass extends GObject.Object { 
-	_init(extension) {
+	constructor(extension) {
+		super();
 		this.tray       = new Shell.TrayManager();
 		this.indicators = new TrayIndicator.TrayIndicator(extension);
 
@@ -79,6 +80,7 @@ export default class TrayIconsReloaded extends Extension {
 			this._startupComplete = Main.layoutManager.connect('startup-complete', () => {
 				this._setTrayArea();
 				Main.layoutManager.disconnect(this._startupComplete);
+				this._startupComplete = null;
 			});
 		} else {
 			this._setTrayArea();
@@ -87,7 +89,11 @@ export default class TrayIconsReloaded extends Extension {
 
 	disable() {
 		this.TrayIcons._destroy();
-		this._settings.run_dispose();
+		this.TrayIcons = null;
 		this._settings = null;
+
+		if (this._startupComplete) {
+			Main.layoutManager.disconnect(this._startupComplete);
+		}
 	}
 }

@@ -4,7 +4,8 @@ import GLib from 'gi://GLib';
 
 export const AppManager = GObject.registerClass(
 	class AppManager extends GObject.Object {
-		_init(extension) {
+		constructor(extension) {
+			super();
 			this._extension = extension;
 		}
 
