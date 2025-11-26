@@ -1,3 +1,9 @@
+# Status
+
+> ⚠️ This extension is no longer maintained and will not receive updates or support.
+
+Recommended alternative: [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
+
 # Tray Icons Reloaded
 
 [<img src="https://raw.githubusercontent.com/andyholmes/gnome-shell-extensions-badge/master/get-it-on-ego.svg?sanitize=true" height="100" align="right">](https://extensions.gnome.org/extension/2890/tray-icons-reloaded/)
