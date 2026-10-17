@@ -1,5 +1,5 @@
 {
-    "shell-version": ["50"],
+    "shell-version": ["50", "51"],
     "uuid": "trayIconsReloaded@selfmade.pl",
     "url": "https://github.com/martinpl/tray-icons-reloaded",
     "version": "33",
