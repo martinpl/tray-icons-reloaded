@@ -15,6 +15,9 @@ class TrayIconsClass extends GObject.Object {
 		this.tray.connect('tray-icon-added', this._onIconAdded.bind(this));
 		this.tray.connect('tray-icon-removed', this._onIconRemoved.bind(this));
 
+	}
+
+	manageScreen() {
 		this.tray.manage_screen(Main.panel);
 	}
 
@@ -22,6 +25,7 @@ class TrayIconsClass extends GObject.Object {
 	_onIconRemoved(trayManager, icon)	 {		this.indicators.removeIcon(icon);	}
 
 	_destroy() {
+		this.tray.unmanage_screen();
 		this.tray = null;
 
 		this.indicators.destroy();
@@ -75,6 +79,7 @@ export default class TrayIconsReloaded extends Extension {
 		this._setTrayMargin();
 		this._setIconSize();
 		this._onChange();
+		this.TrayIcons.manageScreen();
 
 		if (Main.layoutManager._startingUp) {
 			this._startupComplete = Main.layoutManager.connect('startup-complete', () => {

@@ -1,6 +1,7 @@
 import GObject from 'gi://GObject';
 import Shell from 'gi://Shell';
 import GLib from 'gi://GLib';
+import Clutter from 'gi://Clutter';
 
 export const AppManager = GObject.registerClass(
 	class AppManager extends GObject.Object {
@@ -12,10 +13,10 @@ export const AppManager = GObject.registerClass(
 		leftClick(icon, event) {
 			let trayApp = this._getTrayApp(icon);
 			if (trayApp) {
-				let focusedApp = Shell.WindowTracker.get_default().focusApp;
+				let focusedApp = Shell.WindowTracker.get_default().focus_app;
 				let windows = trayApp.get_windows();
 
-				if (windows == "") {
+				if (windows.length === 0) {
 					return this._openApplication(trayApp, icon, event);
 				}
 
@@ -36,7 +37,7 @@ export const AppManager = GObject.registerClass(
 
 		middleClick(icon, event) {
 			// When holding SHIFT
-			if (event.get_state_full()[1] === 1) {
+			if (event.get_state() & Clutter.ModifierType.SHIFT_MASK) {
 				let trayApp = this._getTrayApp(icon);
 				if (trayApp) {
 					const pid = this._getPid(icon);
@@ -93,7 +94,7 @@ export const AppManager = GObject.registerClass(
 				var i = 1;
 				for (let lookup of searchedApps[0]) {
 					let app = Shell.AppSystem.get_default().lookup_app(lookup);
-					if (app && (app.get_windows() != "" || i == searchedApps[0].length)) {
+					if (app && (app.get_windows().length > 0 || i == searchedApps[0].length)) {
 						return app;
 					}
 					i++;

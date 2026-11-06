@@ -477,7 +477,7 @@
 												<child>
 													<object class="GtkLinkButton">
 														<property name="label">GitHub</property>
-														<property name="uri">https://github.com/MartinPL/Tray-Icons-Reloaded</property>
+																		<property name="uri">https://github.com/psam21/tray-icons-reloaded</property>
 														<property name="halign">start</property>
 														<layout>
 															<property name="row">0</property>
