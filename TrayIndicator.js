@@ -58,11 +58,28 @@ export const TrayIndicator = GObject.registerClass(
 
             const button = new St.Button({
                 child: icon,
-                button_mask: St.ButtonMask.ONE | St.ButtonMask.TWO | St.ButtonMask.THREE,
+                button_mask: St.ButtonMask.PRIMARY | St.ButtonMask.MIDDLE | St.ButtonMask.SECONDARY,
                 style: this._getButtonStyle(),
                 style_class: "panel-button",
             })
             button.clear_actions()
+            const clickGesture = new Clutter.ClickGesture()
+            clickGesture.connect("recognize", (gesture) => {
+                this.menu.close()
+                const event = gesture.get_point_event(0)
+                switch (gesture.get_button()) {
+                    case Clutter.BUTTON_PRIMARY:
+                        this._appManager.leftClick(icon, event)
+                        break
+                    case Clutter.BUTTON_MIDDLE:
+                        this._appManager.middleClick(icon, event)
+                        break
+                    case Clutter.BUTTON_SECONDARY:
+                        icon.click(event)
+                        break
+                }
+            })
+            button.add_action(clickGesture)
             icon.opacity = 0
             icon.set_x_align(Clutter.ActorAlign.CENTER)
             icon.set_y_align(Clutter.ActorAlign.CENTER)
@@ -81,28 +98,6 @@ export const TrayIndicator = GObject.registerClass(
                 button.destroy()
             })
 
-            button.connect("touch-event", (actor, event) => {
-                this.menu.close()
-                if (event.type() == Clutter.EventType.TOUCH_END) {
-                    this._appManager.leftClick(icon, event)
-                }
-            })
-
-            button.connect("button-release-event", (actor, event) => {
-                this.menu.close()
-                switch (event.get_button()) {
-                    case 1:
-                        this._appManager.leftClick(icon, event)
-                        break
-                    case 2:
-                        this._appManager.middleClick(icon, event)
-                        break
-                    case 3:
-                        icon.click(event)
-                        break
-                }
-            })
-
             this._icons.push(icon)
 
             if (this._overflow) {
@@ -116,16 +111,20 @@ export const TrayIndicator = GObject.registerClass(
 
         removeIcon(icon, ignoreCheckOverflow) {
             const index = this._icons.indexOf(icon)
+            if (index === -1) return
+
             this._icons.splice(index, 1)
 
             if (icon.timeout) {
-                GLib.Source.remove(icon.timeout)
+                GLib.source_remove(icon.timeout)
                 icon.timeout = null
             }
 
             const actor = icon.get_parent()
-            actor.remove_child(icon)
-            actor.destroy()
+            if (actor) {
+                actor.remove_child(icon)
+                actor.destroy()
+            }
 
             if (!ignoreCheckOverflow) {
                 this.checkOverflow()
@@ -157,7 +156,7 @@ export const TrayIndicator = GObject.registerClass(
         }
 
         _refreshIcons(overflow) {
-            this._icons.forEach((icon) => {
+            [...this._icons].forEach((icon) => {
                 if (icon.inOverflow != overflow) {
                     this.removeIcon(icon, true)
                     this.addIcon(icon)
@@ -189,16 +188,20 @@ export const TrayIndicator = GObject.registerClass(
         setEffect(contrast, saturation, brightness) {
             this._icons.forEach((icon) => {
                 let brightnessContrast = icon.get_effect("brightnessContrast")
-                brightnessContrast.set_contrast(contrast / 100)
-                brightnessContrast.set_brightness(brightness / 100)
+                if (brightnessContrast) {
+                    brightnessContrast.set_contrast(contrast / 100)
+                    brightnessContrast.set_brightness(brightness / 100)
+                }
 
                 let desaturate = icon.get_effect("desaturate")
-                desaturate.set_factor(saturation / 100)
+                if (desaturate) {
+                    desaturate.set_factor(saturation / 100)
+                }
             })
         }
 
         _onDestroy() {
-            this._icons.forEach((icon) => {
+            [...this._icons].forEach((icon) => {
                 this.removeIcon(icon, true)
             })
         }
